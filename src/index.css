@@ -12,6 +12,15 @@
 	--primary: #7c5dff;
 	--primary-dark: #383a55;
 	--white: #f9f8fd;
+	--typo: #272830;
+	--typo-light: #272830cc;
+	--typo-lighter: #27283085;
+	--green: #34d69f;
+	--green-light: #34d69f14;
+	--orange: #ff8d02;
+	--orange-light: #ff8d0217;
+	--dark: #111115;
+	--dark-light: #27283012;
 }
 
 body {

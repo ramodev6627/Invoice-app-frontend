@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaRegUserCircle, FaCaretDown, FaCaretUp, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaCaretDown, FaCaretUp, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import profilePic from '../images/pexels-pixabay-220453.jpg';
 
 const StyledProfileWidget = styled.div`
@@ -30,15 +30,16 @@ const StyledProfileWidget = styled.div`
 	.dropdown {
 		list-style-type: none;
 		position: absolute;
-		color: #000;
+		color: var(--typo-light);
 		background: #fff;
 		width: 100%;
 		padding: 0.5em;
 		font-size: 0.9rem;
 		border-radius: 5px;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
 		li {
-			padding: 0.2em 0.5em;
+			padding: 0.5em 0.8em;
 			display: flex;
 			align-items: center;
 

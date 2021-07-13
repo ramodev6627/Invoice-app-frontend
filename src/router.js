@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Home } from './components/core/Home';
+import { Home } from './components/core/home/Home';
 import { InvoiceView } from './components/invoice/InvoiceView';
 import { InvoiceEditView } from './components/invoice/InvoiceEditView';
 import { InvoiceCreateView } from './components/invoice/InvoiceCreateView';
