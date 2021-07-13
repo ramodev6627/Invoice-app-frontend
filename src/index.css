@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&Nanum+Gothic:wght@700&display=swap');
 
 *,
 *::before,
@@ -26,4 +26,9 @@
 body {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 14px;
+}
+
+button {
+	font-family: 'Nanum Gothic', sans-serif;
+	cursor: pointer;
 }

@@ -6,13 +6,13 @@ import logo from '../images/main-logo.png';
 const StyledHeader = styled.header`
 	background: var(--primary-dark);
 	color: var(--white);
-	padding: 1em 1.5em;
+	padding: 0.2em 1.5em;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 
 	.logo {
-		width: 38px;
+		width: 30px;
 	}
 `;
 

@@ -121,7 +121,7 @@ const StyledInvoiceListItem = styled.li`
 			font-size: 21px;
 			margin-left: 1em;
 			margin-top: 7px;
-			color: var(--primary-dark);
+			color: var(--primary);
 		}
 	}
 `;
