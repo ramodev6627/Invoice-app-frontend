@@ -8,7 +8,7 @@ export const Router = () => {
 	return (
 		<Switch>
 			<Route exact path="/">
-				<Redirect to="/invoices/1" />
+				<Redirect to="/invoices/0" />
 			</Route>
 			<Route exact path="/invoices/:pageIndex" component={Home} />
 			<Route exact path="/invoice/create" component={InvoiceCreateView} />
