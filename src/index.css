@@ -28,7 +28,10 @@ body {
 	font-size: 14px;
 }
 
-button {
+button,
+input {
 	font-family: 'Nanum Gothic', sans-serif;
+}
+button {
 	cursor: pointer;
 }

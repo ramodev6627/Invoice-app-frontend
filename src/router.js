@@ -3,6 +3,7 @@ import { Home } from './components/core/home/Home';
 import { InvoiceView } from './components/invoice/InvoiceView';
 import { InvoiceEditView } from './components/invoice/InvoiceEditView';
 import { InvoiceCreateView } from './components/invoice/InvoiceCreateView';
+import { Auth } from './components/auth/Auth';
 
 export const Router = () => {
 	return (
@@ -15,6 +16,8 @@ export const Router = () => {
 			{/* '/invoice/create/:id will match with IncvoiceEditView so make checks before rendering' */}
 			<Route exact path="/invoice/:invoiceId" component={InvoiceView} />
 			<Route exact path="/invoice/:invoiceId/edit" component={InvoiceEditView} />
+			<Route exact path="/login" component={Auth} />
+			<Route exact path="/signup" component={Auth} />
 		</Switch>
 	);
 };
