@@ -9,6 +9,7 @@ const StyledPagination = styled.ul`
 	align-items: center;
 	justify-content: center;
 	flex-wrap: wrap;
+	margin-top: 4em;
 `;
 
 export const Pagination = ({ total }) => {

@@ -5,6 +5,7 @@ import { Header } from './components/core/Header';
 const StyledApp = styled.div`
 	background: var(--white);
 	min-height: 100vh;
+	padding-bottom: 1em;
 `;
 
 function App() {

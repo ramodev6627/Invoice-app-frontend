@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { IoIosAddCircle } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 const StyledHomeHeader = styled.div`
 	color: var(--typo);
@@ -72,6 +73,7 @@ const StyledHomeHeader = styled.div`
 	}
 
 	.button {
+		text-decoration: none;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -84,6 +86,7 @@ const StyledHomeHeader = styled.div`
 		font-family: 'Nanum Gothic', sans-serif;
 		font-weight: 700;
 		transition: opacity 0.1s ease-in;
+		cursor: pointer;
 
 		svg {
 			margin-right: 0.3em;
@@ -138,10 +141,10 @@ export const HomeHeader = ({ className }) => {
 					</ul>
 				)}
 			</div>
-			<button className="button">
+			<Link to="/invoice/create" className="button">
 				<IoIosAddCircle />
 				<span>New Invoice</span>
-			</button>
+			</Link>
 		</StyledHomeHeader>
 	);
 };

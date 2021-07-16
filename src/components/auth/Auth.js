@@ -5,15 +5,6 @@ import { Button } from '../core/Button';
 import { useFormik } from 'formik';
 
 const StyledAuth = styled.div`
-	.container {
-		box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-		background-color: #fff;
-		padding: 2em;
-		margin: 5em auto;
-		width: 95%;
-		max-width: 600px;
-	}
-
 	.dimensions {
 		width: 100%;
 		max-width: 300px;
