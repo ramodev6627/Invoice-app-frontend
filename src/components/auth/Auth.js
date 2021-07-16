@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../core/Button';
 import { useFormik } from 'formik';
+import { AuthField } from './AuthField';
 
 const StyledAuth = styled.div`
 	.dimensions {
@@ -14,44 +15,6 @@ const StyledAuth = styled.div`
 	h1 {
 		font-size: 1.5rem;
 		color: var(--typo);
-	}
-
-	form {
-		.row {
-			margin: 1em 0;
-
-			input {
-				display: block;
-				margin-top: 0.5em;
-				padding: 0.4em 0.7em;
-				font-size: 0.9rem;
-				font-weight: 600;
-				letter-spacing: 0.032em;
-				color: var(--typo);
-				outline: 0;
-				border: 1px solid #999aa185;
-				border-radius: 5px;
-				width: 100%;
-
-				:focus {
-					border-color: var(--primary);
-				}
-
-				&.error {
-					border-color: #f72a2a;
-					color: #f72a2a;
-				}
-				&.correct {
-					border-color: #19982d;
-					color: #19982d;
-				}
-			}
-
-			.error {
-				margin-top: 1em;
-				color: #f72a2a;
-			}
-		}
 	}
 
 	.footer {
@@ -111,55 +74,9 @@ export const Auth = () => {
 				<h1 className="dimensions">{loginView ? 'Login' : 'Sign Up'}</h1>
 
 				<form onSubmit={formik.handleSubmit} className="dimensions">
-					<div className="row">
-						<label htmlFor="email">Email</label>
-						<input
-							id="email"
-							name="email"
-							type="text"
-							value={formik.values.email}
-							onBlur={formik.handleBlur}
-							onChange={formik.handleChange}
-							className={formik.touched.email && (formik.errors.email ? 'error' : 'correct')}
-						/>
-						{formik.touched.email && formik.errors.email && (
-							<p className="error">{formik.errors.email}</p>
-						)}
-					</div>
-					{!loginView && (
-						<div className="row">
-							<label htmlFor="username">Username</label>
-							<input
-								id="username"
-								name="username"
-								type="text"
-								value={formik.values.username}
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-								className={
-									formik.touched.username && (formik.errors.username ? 'error' : 'correct')
-								}
-							/>
-							{formik.touched.username && formik.errors.username && (
-								<p className="error">{formik.errors.username}</p>
-							)}
-						</div>
-					)}
-					<div className="row">
-						<label htmlFor="password">Password</label>
-						<input
-							id="password"
-							name="password"
-							type="password"
-							value={formik.values.password}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							className={formik.touched.password && (formik.errors.password ? 'error' : 'correct')}
-						/>
-						{formik.touched.password && formik.errors.password && (
-							<p className="error">{formik.errors.password}</p>
-						)}
-					</div>
+					<AuthField type="email" formik={formik} />
+					{!loginView && <AuthField formik={formik} type="username" />}
+					<AuthField type="password" formik={formik} />
 					<Button type="submit" text={loginView ? 'Login' : 'Sign Up'} />
 				</form>
 				<div className="footer dimensions">
