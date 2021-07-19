@@ -87,6 +87,7 @@ const StyledHomeHeader = styled.div`
 		font-weight: 700;
 		transition: opacity 0.1s ease-in;
 		cursor: pointer;
+		max-width: 160px;
 
 		svg {
 			margin-right: 0.3em;
