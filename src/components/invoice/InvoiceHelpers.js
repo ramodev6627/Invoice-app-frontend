@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledInvoiceCreateView = styled.div`
+const StyledInvoiceForm = styled.div`
 	.container {
 		max-width: 800px;
 		margin-top: 2em;
@@ -119,4 +119,4 @@ const initialValues = {
 	status: '',
 };
 
-export { initialValues, StyledInvoiceCreateView };
+export { initialValues, StyledInvoiceForm };

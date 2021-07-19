@@ -4,19 +4,28 @@ import { TextArea } from '../core/TextArea';
 import { Button } from '../core/Button';
 import { InvoiceFormField } from './InvoiceFormField';
 import { InvoiceFormItem } from './InvoiceFormItem';
-import { initialValues, StyledInvoiceCreateView } from './InvoiceHelpers';
+import { initialValues, StyledInvoiceForm } from './InvoiceHelpers';
 
-export const InvoiceCreateView = () => {
+export const InvoiceForm = ({ match }) => {
+	let editView = match.path === '/invoice/:invoiceId/edit' ? true : false;
+
+	const submitHandler = (val) => {
+		if (editView) {
+			//edit the invoice
+			console.log(val);
+		} else {
+			//create new invoice
+			console.log(val);
+		}
+	};
+
+	// let valuesToEdit ; //values to pass to formik as initial values
+
 	return (
-		<StyledInvoiceCreateView>
+		<StyledInvoiceForm>
 			<div className="container">
-				<h1>New Invoice</h1>
-				<Formik
-					initialValues={initialValues}
-					onSubmit={(val) => {
-						console.log(val);
-					}}
-				>
+				<h1>{editView ? 'Edit Invoice' : 'New Invoice'}</h1>
+				<Formik initialValues={initialValues} onSubmit={submitHandler}>
 					{({ values }) => (
 						<Form>
 							<div className="from">
@@ -102,6 +111,6 @@ export const InvoiceCreateView = () => {
 					)}
 				</Formik>
 			</div>
-		</StyledInvoiceCreateView>
+		</StyledInvoiceForm>
 	);
 };
