@@ -10,6 +10,7 @@ const StyledInvoiceForm = styled.div`
 	h1 {
 		color: var(--typo);
 		font-size: 1.5rem;
+		margin-top: 1em;
 	}
 
 	.from,
@@ -119,4 +120,125 @@ const initialValues = {
 	status: '',
 };
 
-export { initialValues, StyledInvoiceForm };
+const validate = (val) => {
+	let errors = {
+		from: {
+			streetAddress: '',
+			city: '',
+			postCode: '',
+			country: '',
+		},
+		to: {
+			clientName: '',
+			clientEmail: '',
+			streetAddress: '',
+			city: '',
+			postCode: '',
+			country: '',
+		},
+		terms: {
+			invoiceDate: '',
+			paymentDue: '',
+		},
+		description: '',
+	};
+	// let errors = { ...initialValues };
+	// errors.terms.invoiceDate = '';
+	// errors.terms.paymentDue = '';
+
+	if (!val.from.streetAddress) {
+		errors.from.streetAddress = 'This Field is required';
+	}
+
+	if (!val.from.city) {
+		errors.from.city = 'This Field is required';
+	}
+
+	if (!val.from.postCode) {
+		errors.from.postCode = 'This Field is required';
+	} else if (isNaN(val.from.postCode)) {
+		errors.from.postCode = 'Post Code MUST be a Number';
+	}
+
+	if (!val.from.country) {
+		errors.from.country = 'This Field is required';
+	}
+
+	if (!val.to.clientName) {
+		errors.to.clientName = 'This Field is required';
+	}
+
+	if (!val.to.clientEmail) {
+		errors.to.clientEmail = 'This Field is required';
+	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val.to.clientEmail)) {
+		errors.to.clientEmail = 'Invalid email address';
+	}
+
+	if (!val.to.streetAddress) {
+		errors.to.streetAddress = 'This Field is required';
+	}
+
+	if (!val.to.city) {
+		errors.to.city = 'This Field is required';
+	}
+
+	if (!val.to.postCode) {
+		errors.to.postCode = 'This Field is required';
+	} else if (isNaN(val.to.postCode)) {
+		errors.to.postCode = 'Post Code MUST be a Number';
+	}
+
+	if (!val.to.country) {
+		errors.to.country = 'This Field is required';
+	}
+
+	if (!val.terms.invoiceDate) {
+		errors.terms.invoiceDate = 'This Field is required';
+	}
+	if (!val.terms.paymentDue) {
+		errors.terms.paymentDue = 'This Field is required';
+	}
+
+	if (!val.description) {
+		errors.description = 'This Field is required';
+	}
+
+	return errors;
+};
+
+const validateItemName = (val) => {
+	let error;
+	if (!val) {
+		error = 'Item name is required';
+	}
+	return error;
+};
+
+const validateItemQty = (val) => {
+	let error;
+	if (!val) {
+		error = 'Item Qty is Required';
+	} else if (isNaN(val)) {
+		error = 'Item Qty MUST be a Number';
+	}
+	return error;
+};
+
+const validateItemPrice = (val) => {
+	let error;
+	if (!val) {
+		error = 'Item Price is Required';
+	} else if (isNaN(val)) {
+		error = 'Item Price MUST be a Number';
+	}
+	return error;
+};
+
+export {
+	initialValues,
+	StyledInvoiceForm,
+	validate,
+	validateItemName,
+	validateItemQty,
+	validateItemPrice,
+};

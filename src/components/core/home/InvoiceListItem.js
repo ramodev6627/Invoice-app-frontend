@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RiArrowRightSLine } from 'react-icons/ri';
+import { useHistory } from 'react-router-dom';
+import { InvoiceStatus } from '../InvoiceStatus';
 
 const StyledInvoiceListItem = styled.li`
 	background: #fff;
@@ -45,47 +47,6 @@ const StyledInvoiceListItem = styled.li`
 		font-weight: 700;
 	}
 
-	.state {
-		border-radius: 5px;
-		padding: 0.8em 1em;
-		align-self: flex-end;
-		width: 110px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		span {
-			display: block;
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-
-			margin-right: 7px;
-		}
-
-		&.paid {
-			color: var(--green);
-			background: var(--green-light);
-			span {
-				background-color: var(--green);
-			}
-		}
-		&.pending {
-			color: var(--orange);
-			background: var(--orange-light);
-			span {
-				background-color: var(--orange);
-			}
-		}
-		&.draft {
-			color: var(--dark);
-			background: var(--dark-light);
-			span {
-				background-color: var(--dark);
-			}
-		}
-	}
-
 	.cta {
 		display: none;
 	}
@@ -127,8 +88,14 @@ const StyledInvoiceListItem = styled.li`
 `;
 
 export const InvoiceListItem = () => {
+	const history = useHistory();
+
+	const clickHandler = () => {
+		history.push('/invoice/:id');
+	};
+
 	return (
-		<StyledInvoiceListItem>
+		<StyledInvoiceListItem onClick={clickHandler}>
 			<div className="wrapper wrapper-1">
 				<p className="id">
 					#<span>RT3080</span>
@@ -140,10 +107,7 @@ export const InvoiceListItem = () => {
 					<p className="name">Jensen Rosvelt</p>
 					<p className="price">$ 1,800.90</p>
 				</div>
-				<div className="state paid">
-					<span></span>
-					<p>Paid</p>
-				</div>
+				<InvoiceStatus status="paid" />
 			</div>
 			<div className="cta">
 				<RiArrowRightSLine />

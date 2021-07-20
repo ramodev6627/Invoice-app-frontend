@@ -4,7 +4,8 @@ import { TextArea } from '../core/TextArea';
 import { Button } from '../core/Button';
 import { InvoiceFormField } from './InvoiceFormField';
 import { InvoiceFormItem } from './InvoiceFormItem';
-import { initialValues, StyledInvoiceForm } from './InvoiceHelpers';
+import { initialValues, StyledInvoiceForm, validate } from './InvoiceHelpers';
+import { BackButton } from '../core/BackButton';
 
 export const InvoiceForm = ({ match }) => {
 	let editView = match.path === '/invoice/:invoiceId/edit' ? true : false;
@@ -24,38 +25,105 @@ export const InvoiceForm = ({ match }) => {
 	return (
 		<StyledInvoiceForm>
 			<div className="container">
+				<BackButton />
 				<h1>{editView ? 'Edit Invoice' : 'New Invoice'}</h1>
-				<Formik initialValues={initialValues} onSubmit={submitHandler}>
-					{({ values }) => (
+				<Formik initialValues={initialValues} onSubmit={submitHandler} validate={validate}>
+					{({ values, errors, touched, handleBlur }) => (
 						<Form>
 							<div className="from">
 								<p className="title">Bill From</p>
-								<InvoiceFormField formikValue="from.streetAddress" label="Street Address" />
+								<InvoiceFormField
+									errors={errors}
+									touched={touched}
+									onBlur={handleBlur}
+									formikValue="from.streetAddress"
+									label="Street Address"
+								/>
 								<div className="wrapper">
-									<InvoiceFormField formikValue="from.city" label="City" />
-									<InvoiceFormField formikValue="from.postCode" label="Post Code" />
-									<InvoiceFormField formikValue="from.country" label="Country" />
+									<InvoiceFormField
+										onBlur={handleBlur}
+										errors={errors}
+										touched={touched}
+										formikValue="from.city"
+										label="City"
+									/>
+									<InvoiceFormField
+										onBlur={handleBlur}
+										errors={errors}
+										touched={touched}
+										formikValue="from.postCode"
+										label="Post Code"
+									/>
+									<InvoiceFormField
+										onBlur={handleBlur}
+										errors={errors}
+										touched={touched}
+										formikValue="from.country"
+										label="Country"
+									/>
 								</div>
 							</div>
 							<div className="to">
 								<p className="title">Bill To</p>
-								<InvoiceFormField formikValue="to.clientName" label="Client's Name" />
-								<InvoiceFormField formikValue="to.clientEmail" label="Client's Email" />
-								<InvoiceFormField formikValue="to.streetAddress" label="Street Address" />
+								<InvoiceFormField
+									onBlur={handleBlur}
+									errors={errors}
+									touched={touched}
+									formikValue="to.clientName"
+									label="Client's Name"
+								/>
+								<InvoiceFormField
+									onBlur={handleBlur}
+									errors={errors}
+									touched={touched}
+									formikValue="to.clientEmail"
+									label="Client's Email"
+								/>
+								<InvoiceFormField
+									onBlur={handleBlur}
+									errors={errors}
+									touched={touched}
+									formikValue="to.streetAddress"
+									label="Street Address"
+								/>
 								<div className="wrapper">
-									<InvoiceFormField formikValue="to.city" label="City" />
-									<InvoiceFormField formikValue="to.postCode" label="Post Code" />
-									<InvoiceFormField formikValue="to.country" label="Country" />
+									<InvoiceFormField
+										onBlur={handleBlur}
+										errors={errors}
+										touched={touched}
+										formikValue="to.city"
+										label="City"
+									/>
+									<InvoiceFormField
+										onBlur={handleBlur}
+										errors={errors}
+										touched={touched}
+										formikValue="to.postCode"
+										label="Post Code"
+									/>
+									<InvoiceFormField
+										onBlur={handleBlur}
+										errors={errors}
+										touched={touched}
+										formikValue="to.country"
+										label="Country"
+									/>
 								</div>
 							</div>
 							<div className="terms">
 								<InvoiceFormField
+									onBlur={handleBlur}
+									errors={errors}
+									touched={touched}
 									formikValue="terms.invoiceDate"
 									type="date"
 									className="date-picker"
 									label="Invoice Date"
 								/>
 								<InvoiceFormField
+									onBlur={handleBlur}
+									errors={errors}
+									touched={touched}
 									formikValue="terms.paymentDue"
 									type="date"
 									className="date-picker"
@@ -63,6 +131,9 @@ export const InvoiceForm = ({ match }) => {
 								/>
 							</div>
 							<InvoiceFormField
+								onBlur={handleBlur}
+								errors={errors}
+								touched={touched}
 								formikValue="description"
 								label="Description"
 								component={TextArea}
@@ -79,6 +150,9 @@ export const InvoiceForm = ({ match }) => {
 													values.itemList.map((item, index) => {
 														return (
 															<InvoiceFormItem
+																onBlur={handleBlur}
+																errors={errors}
+																touched={touched}
 																key={index}
 																item={item}
 																index={index}

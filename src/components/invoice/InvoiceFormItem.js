@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TextInput } from '../core/TextInput';
 import { MdDelete } from 'react-icons/md';
+import { validateItemName, validateItemPrice, validateItemQty } from './InvoiceHelpers';
 
 const StyledInvoiceFormItem = styled.li`
 	.col {
@@ -19,6 +20,11 @@ const StyledInvoiceFormItem = styled.li`
 			align-items: center;
 			height: 38px;
 			font-size: 1.1rem;
+
+			&.error {
+				font-size: 0.8rem;
+				color: #f72a2a;
+			}
 		}
 	}
 
@@ -78,23 +84,53 @@ const StyledInvoiceFormItem = styled.li`
 	}
 `;
 
-export const InvoiceFormItem = ({ index, item, remove }) => {
+export const InvoiceFormItem = ({ index, item, remove, touched, errors, onBlur }) => {
 	return (
 		<StyledInvoiceFormItem>
 			<div className=" col name">
 				<label htmlFor={`itemList.${index}.itemName`}>Item Name</label>
 
-				<Field name={`itemList.${index}.itemName`} component={TextInput} />
+				<Field
+					name={`itemList.${index}.itemName`}
+					validate={validateItemName}
+					component={TextInput}
+					onBlur={onBlur}
+				/>
+
+				{touched.itemList &&
+					touched.itemList[index] &&
+					touched.itemList[index].itemName &&
+					errors.itemList &&
+					errors.itemList[index] &&
+					errors.itemList[index].itemName && (
+						<p className="error">{errors.itemList[index].itemName}</p>
+					)}
 			</div>
 			<div className=" col qty">
 				<label htmlFor={`itemList.${index}.qty`}>Qty.</label>
 
-				<Field name={`itemList.${index}.qty`} component={TextInput} />
+				<Field name={`itemList.${index}.qty`} validate={validateItemQty} component={TextInput} />
+				{touched.itemList &&
+					touched.itemList[index] &&
+					touched.itemList[index].qty &&
+					errors.itemList &&
+					errors.itemList[index] &&
+					errors.itemList[index].qty && <p className="error">{errors.itemList[index].qty}</p>}
 			</div>
 			<div className=" col price">
 				<label htmlFor={`itemList.${index}.price`}>Price</label>
 
-				<Field name={`itemList.${index}.price`} component={TextInput} />
+				<Field
+					name={`itemList.${index}.price`}
+					validate={validateItemPrice}
+					component={TextInput}
+				/>
+				{touched.itemList &&
+					touched.itemList[index] &&
+					touched.itemList[index].price &&
+					errors.itemList &&
+					errors.itemList[index] &&
+					errors.itemList[index].price && <p className="error">{errors.itemList[index].price}</p>}
 			</div>
 			<div className="col total">
 				<label htmlFor="total">Total</label>

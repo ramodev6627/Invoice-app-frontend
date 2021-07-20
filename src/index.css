@@ -23,6 +23,10 @@
 	--dark-light: #27283012;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 14px;

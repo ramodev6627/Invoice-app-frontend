@@ -28,9 +28,17 @@ const StyledButton = styled.button`
 			margin-left: 1px;
 		}
 	}
+
+	&.rounded {
+		border-radius: 40px;
+	}
+
+	&.red {
+		background-color: #fb5151;
+	}
 `;
 
-export const Button = ({ text, type, children, handleClick }) => {
+export const Button = ({ text, type, children, handleClick, className }) => {
 	if (type === 'icon') {
 		return (
 			<StyledButton className="icon" onClick={handleClick}>
@@ -39,7 +47,7 @@ export const Button = ({ text, type, children, handleClick }) => {
 		);
 	}
 	return (
-		<StyledButton type={type} onClick={handleClick}>
+		<StyledButton type={type} className={className} onClick={handleClick}>
 			{text}
 		</StyledButton>
 	);

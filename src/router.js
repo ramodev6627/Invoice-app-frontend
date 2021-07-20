@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Home } from './components/core/home/Home';
-import { InvoiceView } from './components/invoice/InvoiceView';
+import { InvoiceView } from './components/invoice/View/InvoiceView';
 import { InvoiceForm } from './components/invoice/InvoiceForm';
 import { Auth } from './components/auth/Auth';
 
