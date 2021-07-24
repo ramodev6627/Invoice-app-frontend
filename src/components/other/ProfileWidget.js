@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FaCaretDown, FaCaretUp, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaCaretDown, FaCaretUp, FaSignOutAlt } from 'react-icons/fa';
 import profilePic from '../images/pexels-pixabay-220453.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../auth/AuthSlice';
 
 const StyledProfileWidget = styled.div`
 	position: relative;
@@ -42,6 +44,7 @@ const StyledProfileWidget = styled.div`
 			padding: 0.5em 0.8em;
 			display: flex;
 			align-items: center;
+			cursor: pointer;
 
 			span {
 				margin-left: 0.5em;
@@ -58,22 +61,19 @@ const StyledProfileWidget = styled.div`
 
 export const ProfileWidget = () => {
 	const [showDropDown, setShowDropDown] = useState(false);
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.auth.user);
 
 	return (
 		<StyledProfileWidget>
 			<div className="user" onClick={() => setShowDropDown((prev) => !prev)}>
 				<img src={profilePic} alt="Not me" />
-				<p>Omar Aharrar</p>
+				<p>{user.username}</p>
 				{showDropDown ? <FaCaretUp /> : <FaCaretDown />}
 			</div>
 			{showDropDown && (
 				<ul className="dropdown">
-					<li>
-						<FaCog />
-						<span>Settings</span>
-					</li>
-					<div className="divider"></div>
-					<li>
+					<li onClick={() => dispatch(logout())}>
 						<FaSignOutAlt />
 						<span>Logout</span>
 					</li>

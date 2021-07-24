@@ -3,20 +3,32 @@ import { Home } from './components/core/home/Home';
 import { InvoiceView } from './components/invoice/View/InvoiceView';
 import { InvoiceForm } from './components/invoice/InvoiceForm';
 import { Auth } from './components/auth/Auth';
+import { useSelector } from 'react-redux';
 
 export const Router = () => {
+	const user = useSelector((state) => state.auth.user);
 	return (
 		<Switch>
 			<Route exact path="/">
 				<Redirect to="/invoices/1" />
 			</Route>
-			<Route exact path="/invoices/:pageIndex" component={Home} />
+			<Route exact path="/invoices/:pageIndex">
+				{user ? <Home /> : <Redirect to="/login" />}
+			</Route>
 			<Route exact path="/invoice/create" component={InvoiceForm} />
 			{/* '/invoice/create/:id will match with IncvoiceEditView so make checks before rendering' */}
-			<Route exact path="/invoice/:invoiceId" component={InvoiceView} />
-			<Route exact path="/invoice/:invoiceId/edit" component={InvoiceForm} />
-			<Route exact path="/login" component={Auth} />
-			<Route exact path="/signup" component={Auth} />
+			<Route exact path="/invoice/:invoiceId">
+				{user ? <InvoiceView /> : <Redirect to="/login" />}
+			</Route>
+			<Route exact path="/invoice/:invoiceId/edit">
+				{user ? <InvoiceForm /> : <Redirect to="/login" />}
+			</Route>
+			<Route exact path="/login">
+				{!user ? <Auth /> : <Redirect to="/" />}
+			</Route>
+			<Route exact path="/signup">
+				{!user ? <Auth /> : <Redirect to="/" />}
+			</Route>
 		</Switch>
 	);
 };

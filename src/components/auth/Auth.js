@@ -4,6 +4,14 @@ import styled from 'styled-components';
 import { Button } from '../core/Button';
 import { useFormik } from 'formik';
 import { AuthField } from './AuthField';
+import {
+	validateLogin,
+	validateSignup,
+	loginInitialValues,
+	signupInitialValues,
+} from './AuthHelpers';
+import { useDispatch } from 'react-redux';
+import { login, signup } from './AuthSlice';
 
 const StyledAuth = styled.div`
 	.dimensions {
@@ -24,48 +32,23 @@ const StyledAuth = styled.div`
 	}
 `;
 
-const validate = (val) => {
-	let errors = {};
-
-	if (!val.email) {
-		errors.email = 'Email is required';
-	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val.email)) {
-		errors.email = 'Invalid email address';
-	}
-
-	if (!val.password) {
-		errors.password = 'Password is required';
-	} else if (val.password.length < 8) {
-		errors.password = 'Password must be at least 8 characters';
-	}
-
-	if (!val.username) {
-		errors.username = 'Username is required';
-	}
-
-	return errors;
-};
-
 export const Auth = () => {
 	const location = useLocation();
 	let loginView = location.pathname === '/login' ? true : false;
+	const dispatch = useDispatch();
 
 	const formik = useFormik({
-		initialValues: {
-			username: '',
-			email: '',
-			password: '',
-		},
+		initialValues: loginView ? loginInitialValues : signupInitialValues,
 		onSubmit: (val) => {
 			if (loginView) {
 				//login
-				console.log(val);
+				dispatch(login(val));
 			} else {
 				//signup
-				console.log(val);
+				dispatch(signup(val));
 			}
 		},
-		validate,
+		validate: loginView ? validateLogin : validateSignup,
 	});
 
 	return (
