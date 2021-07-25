@@ -4,6 +4,7 @@ import { FaCaretDown, FaCaretUp, FaSignOutAlt } from 'react-icons/fa';
 import profilePic from '../images/pexels-pixabay-220453.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../auth/AuthSlice';
+import { useHistory } from 'react-router-dom';
 
 const StyledProfileWidget = styled.div`
 	position: relative;
@@ -60,6 +61,7 @@ const StyledProfileWidget = styled.div`
 `;
 
 export const ProfileWidget = () => {
+	const history = useHistory();
 	const [showDropDown, setShowDropDown] = useState(false);
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.auth.user);
@@ -73,7 +75,12 @@ export const ProfileWidget = () => {
 			</div>
 			{showDropDown && (
 				<ul className="dropdown">
-					<li onClick={() => dispatch(logout())}>
+					<li
+						onClick={() => {
+							dispatch(logout());
+							history.push('/login');
+						}}
+					>
 						<FaSignOutAlt />
 						<span>Logout</span>
 					</li>

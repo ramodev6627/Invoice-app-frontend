@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TextInput } from '../core/TextInput';
 import { MdDelete } from 'react-icons/md';
-import { validateItemName, validateItemPrice, validateItemQty } from './InvoiceHelpers';
+import { validateItemName, validateItemPrice, validateItemQty } from './InvoiceFormHelpers';
 
 const StyledInvoiceFormItem = styled.li`
 	.col {

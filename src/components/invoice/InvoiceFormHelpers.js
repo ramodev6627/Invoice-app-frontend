@@ -1,3 +1,4 @@
+import axios from 'axios';
 import styled from 'styled-components';
 
 const StyledInvoiceForm = styled.div`
@@ -117,85 +118,107 @@ const initialValues = {
 			price: '',
 		},
 	],
-	status: '',
+	status: 'PENDING',
 };
 
 const validate = (val) => {
-	let errors = {
-		from: {
-			streetAddress: '',
-			city: '',
-			postCode: '',
-			country: '',
-		},
-		to: {
-			clientName: '',
-			clientEmail: '',
-			streetAddress: '',
-			city: '',
-			postCode: '',
-			country: '',
-		},
-		terms: {
-			invoiceDate: '',
-			paymentDue: '',
-		},
-		description: '',
-	};
-	// let errors = { ...initialValues };
-	// errors.terms.invoiceDate = '';
-	// errors.terms.paymentDue = '';
+	let errors = {};
 
 	if (!val.from.streetAddress) {
+		if (!('from' in errors)) {
+			errors.from = {};
+		}
 		errors.from.streetAddress = 'This Field is required';
 	}
 
 	if (!val.from.city) {
+		if (!('from' in errors)) {
+			errors.from = {};
+		}
 		errors.from.city = 'This Field is required';
 	}
 
 	if (!val.from.postCode) {
+		if (!('from' in errors)) {
+			errors.from = {};
+		}
 		errors.from.postCode = 'This Field is required';
 	} else if (isNaN(val.from.postCode)) {
+		if (!('from' in errors)) {
+			errors.from = {};
+		}
 		errors.from.postCode = 'Post Code MUST be a Number';
 	}
 
 	if (!val.from.country) {
+		if (!('from' in errors)) {
+			errors.from = {};
+		}
 		errors.from.country = 'This Field is required';
 	}
 
 	if (!val.to.clientName) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.clientName = 'This Field is required';
 	}
 
 	if (!val.to.clientEmail) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.clientEmail = 'This Field is required';
 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val.to.clientEmail)) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.clientEmail = 'Invalid email address';
 	}
 
 	if (!val.to.streetAddress) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.streetAddress = 'This Field is required';
 	}
 
 	if (!val.to.city) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.city = 'This Field is required';
 	}
 
 	if (!val.to.postCode) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.postCode = 'This Field is required';
 	} else if (isNaN(val.to.postCode)) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.postCode = 'Post Code MUST be a Number';
 	}
 
 	if (!val.to.country) {
+		if (!('to' in errors)) {
+			errors.to = {};
+		}
 		errors.to.country = 'This Field is required';
 	}
 
 	if (!val.terms.invoiceDate) {
+		if (!('terms' in errors)) {
+			errors.terms = {};
+		}
 		errors.terms.invoiceDate = 'This Field is required';
 	}
 	if (!val.terms.paymentDue) {
+		if (!('terms' in errors)) {
+			errors.terms = {};
+		}
 		errors.terms.paymentDue = 'This Field is required';
 	}
 
@@ -234,6 +257,24 @@ const validateItemPrice = (val) => {
 	return error;
 };
 
+const createInvoice = async (val, jwt) => {
+	try {
+		let res = await axios({
+			method: 'post',
+			url: 'https://zeneoinvoices.herokuapp.com/invoices',
+			data: val,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${jwt}`,
+			},
+		});
+		return await res.data;
+	} catch (err) {
+		return Promise.reject(err);
+	}
+};
+
 export {
 	initialValues,
 	StyledInvoiceForm,
@@ -241,4 +282,5 @@ export {
 	validateItemName,
 	validateItemQty,
 	validateItemPrice,
+	createInvoice,
 };

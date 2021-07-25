@@ -4,19 +4,29 @@ import { TextArea } from '../core/TextArea';
 import { Button } from '../core/Button';
 import { InvoiceFormField } from './InvoiceFormField';
 import { InvoiceFormItem } from './InvoiceFormItem';
-import { initialValues, StyledInvoiceForm, validate } from './InvoiceHelpers';
+import { createInvoice, initialValues, StyledInvoiceForm, validate } from './InvoiceFormHelpers';
 import { BackButton } from '../core/BackButton';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-export const InvoiceForm = ({ match }) => {
+export const InvoiceForm = () => {
+	const match = useRouteMatch();
+	const history = useHistory();
+	const jwt = useSelector((state) => state.auth.jwt);
 	let editView = match.path === '/invoice/:invoiceId/edit' ? true : false;
 
-	const submitHandler = (val) => {
+	const submitHandler = async (val) => {
 		if (editView) {
 			//edit the invoice
 			console.log(val);
 		} else {
 			//create new invoice
-			console.log(val);
+			try {
+				let response = await createInvoice(val, jwt);
+				history.push(`/invoice/${response.id}`);
+			} catch (err) {
+				console.log(err);
+			}
 		}
 	};
 

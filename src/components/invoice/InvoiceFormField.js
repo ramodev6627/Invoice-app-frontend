@@ -47,9 +47,20 @@ export const InvoiceFormField = ({
 		let nestedKeys = formikValue.split('.');
 		if (Object.keys(errors).length > 0) {
 			if (nestedKeys.length === 1) {
-				setErrorMessage(errors[formikValue]);
+				if (typeof errors[formikValue] !== 'undefined') {
+					setErrorMessage(errors[formikValue]);
+				} else {
+					setErrorMessage(false);
+				}
 			} else if (nestedKeys.length === 2 && Object.keys(errors).length > 1) {
-				setErrorMessage(errors[nestedKeys[0]][nestedKeys[1]]);
+				if (
+					typeof errors[nestedKeys[0]] !== 'undefined' &&
+					typeof errors[nestedKeys[0]][nestedKeys[1]] !== 'undefined'
+				) {
+					setErrorMessage(errors[nestedKeys[0]][nestedKeys[1]]);
+				} else {
+					setErrorMessage(false);
+				}
 			}
 		}
 	}, [errors, formikValue]);
@@ -58,9 +69,16 @@ export const InvoiceFormField = ({
 		let nestedKeys = formikValue.split('.');
 		if (Object.keys(touched).length > 0) {
 			if (nestedKeys.length === 1) {
-				setTouchedState(touched[formikValue]);
+				if (typeof touched[formikValue] !== 'undefined') {
+					setTouchedState(touched[formikValue]);
+				}
 			} else if (nestedKeys.length === 2) {
-				touched[nestedKeys[0]] && setTouchedState(touched[nestedKeys[0]][nestedKeys[1]]);
+				if (
+					typeof touched[nestedKeys[0]] !== 'undefined' &&
+					typeof touched[nestedKeys[0]][nestedKeys[1]] !== 'undefined'
+				) {
+					setTouchedState(touched[nestedKeys[0]][nestedKeys[1]]);
+				}
 			}
 		}
 	}, [touched, formikValue]);

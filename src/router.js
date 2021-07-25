@@ -15,8 +15,10 @@ export const Router = () => {
 			<Route exact path="/invoices/:pageIndex">
 				{user ? <Home /> : <Redirect to="/login" />}
 			</Route>
-			<Route exact path="/invoice/create" component={InvoiceForm} />
-			{/* '/invoice/create/:id will match with IncvoiceEditView so make checks before rendering' */}
+			<Route exact path="/invoice/create">
+				{/* '/invoice/create/:id will match with IncvoiceEditView so make checks before rendering' */}
+				{user ? <InvoiceForm /> : <Redirect to="/login" />}
+			</Route>
 			<Route exact path="/invoice/:invoiceId">
 				{user ? <InvoiceView /> : <Redirect to="/login" />}
 			</Route>
