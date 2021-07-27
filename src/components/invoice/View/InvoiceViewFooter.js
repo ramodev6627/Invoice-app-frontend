@@ -21,11 +21,11 @@ const StyledInvoiceViewFooter = styled.footer`
 	}
 `;
 
-export const InvoiceViewFooter = () => {
+export const InvoiceViewFooter = ({ total }) => {
 	return (
 		<StyledInvoiceViewFooter>
 			<p>Ground Total</p>
-			<span>506.00 $</span>
+			<span>{total} $</span>
 		</StyledInvoiceViewFooter>
 	);
 };

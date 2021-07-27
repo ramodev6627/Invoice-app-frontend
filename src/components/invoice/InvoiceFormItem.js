@@ -88,49 +88,57 @@ export const InvoiceFormItem = ({ index, item, remove, touched, errors, onBlur }
 	return (
 		<StyledInvoiceFormItem>
 			<div className=" col name">
-				<label htmlFor={`itemList.${index}.itemName`}>Item Name</label>
+				<label htmlFor={`invoiceItems.${index}.itemName`}>Item Name</label>
 
 				<Field
-					name={`itemList.${index}.itemName`}
+					name={`invoiceItems.${index}.itemName`}
 					validate={validateItemName}
 					component={TextInput}
 					onBlur={onBlur}
 				/>
 
-				{touched.itemList &&
-					touched.itemList[index] &&
-					touched.itemList[index].itemName &&
-					errors.itemList &&
-					errors.itemList[index] &&
-					errors.itemList[index].itemName && (
-						<p className="error">{errors.itemList[index].itemName}</p>
+				{touched.invoiceItems &&
+					touched.invoiceItems[index] &&
+					touched.invoiceItems[index].itemName &&
+					errors.invoiceItems &&
+					errors.invoiceItems[index] &&
+					errors.invoiceItems[index].itemName && (
+						<p className="error">{errors.invoiceItems[index].itemName}</p>
 					)}
 			</div>
 			<div className=" col qty">
-				<label htmlFor={`itemList.${index}.qty`}>Qty.</label>
-
-				<Field name={`itemList.${index}.qty`} validate={validateItemQty} component={TextInput} />
-				{touched.itemList &&
-					touched.itemList[index] &&
-					touched.itemList[index].qty &&
-					errors.itemList &&
-					errors.itemList[index] &&
-					errors.itemList[index].qty && <p className="error">{errors.itemList[index].qty}</p>}
-			</div>
-			<div className=" col price">
-				<label htmlFor={`itemList.${index}.price`}>Price</label>
+				<label htmlFor={`invoiceItems.${index}.qty`}>Qty.</label>
 
 				<Field
-					name={`itemList.${index}.price`}
+					name={`invoiceItems.${index}.qty`}
+					validate={validateItemQty}
+					component={TextInput}
+				/>
+				{touched.invoiceItems &&
+					touched.invoiceItems[index] &&
+					touched.invoiceItems[index].qty &&
+					errors.invoiceItems &&
+					errors.invoiceItems[index] &&
+					errors.invoiceItems[index].qty && (
+						<p className="error">{errors.invoiceItems[index].qty}</p>
+					)}
+			</div>
+			<div className=" col price">
+				<label htmlFor={`invoiceItems.${index}.price`}>Price</label>
+
+				<Field
+					name={`invoiceItems.${index}.price`}
 					validate={validateItemPrice}
 					component={TextInput}
 				/>
-				{touched.itemList &&
-					touched.itemList[index] &&
-					touched.itemList[index].price &&
-					errors.itemList &&
-					errors.itemList[index] &&
-					errors.itemList[index].price && <p className="error">{errors.itemList[index].price}</p>}
+				{touched.invoiceItems &&
+					touched.invoiceItems[index] &&
+					touched.invoiceItems[index].price &&
+					errors.invoiceItems &&
+					errors.invoiceItems[index] &&
+					errors.invoiceItems[index].price && (
+						<p className="error">{errors.invoiceItems[index].price}</p>
+					)}
 			</div>
 			<div className="col total">
 				<label htmlFor="total">Total</label>

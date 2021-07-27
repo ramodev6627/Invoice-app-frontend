@@ -65,7 +65,7 @@ const StyledInvoiceViewItem = styled.li`
 	}
 `;
 
-export const InvoiceViewItem = ({ className }) => {
+export const InvoiceViewItem = ({ className, item }) => {
 	if (className === 'head') {
 		return (
 			<StyledInvoiceViewItem className={className}>
@@ -79,12 +79,12 @@ export const InvoiceViewItem = ({ className }) => {
 
 	return (
 		<StyledInvoiceViewItem className={className}>
-			<p className="name strong">Banner Design</p>
+			<p className="name strong">{item.itemName}</p>
 			<p className="qty">
-				2 <span>x</span>
+				{item.qty} <span>x</span>
 			</p>
-			<p className="price">120 $</p>
-			<p className="total strong">240 $</p>
+			<p className="price">{item.price} $</p>
+			<p className="total strong">{item.price * item.qty} $</p>
 		</StyledInvoiceViewItem>
 	);
 };

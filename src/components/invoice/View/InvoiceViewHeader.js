@@ -69,12 +69,12 @@ const StyledInvoiceViewHeader = styled.div`
 	}
 `;
 
-export const InvoiceViewHeader = () => {
+export const InvoiceViewHeader = ({ status }) => {
 	return (
 		<StyledInvoiceViewHeader>
 			<div className="status">
 				<p className="title">Status</p>
-				<InvoiceStatus status="pending" />
+				<InvoiceStatus status={status} />
 			</div>
 			<div className="cta">
 				<Link to="/invoice/id/edit">Edit</Link>

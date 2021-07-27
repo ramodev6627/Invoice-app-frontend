@@ -152,12 +152,12 @@ export const InvoiceForm = () => {
 
 							<div className="item-list">
 								<p className="title">Item List</p>
-								<FieldArray name="itemList">
+								<FieldArray name="invoiceItems">
 									{({ remove, push }) => (
 										<>
 											<ul>
-												{values.itemList.length > 0 &&
-													values.itemList.map((item, index) => {
+												{values.invoiceItems.length > 0 &&
+													values.invoiceItems.map((item, index) => {
 														return (
 															<InvoiceFormItem
 																onBlur={handleBlur}

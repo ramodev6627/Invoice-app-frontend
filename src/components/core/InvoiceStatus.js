@@ -23,21 +23,21 @@ const StyledInvoiceStatus = styled.div`
 		text-transform: capitalize;
 	}
 
-	&.paid {
+	&.PAID {
 		color: var(--green);
 		background: var(--green-light);
 		span {
 			background-color: var(--green);
 		}
 	}
-	&.pending {
+	&.PENDING {
 		color: var(--orange);
 		background: var(--orange-light);
 		span {
 			background-color: var(--orange);
 		}
 	}
-	&.draft {
+	&.DRAFT {
 		color: var(--dark);
 		background: var(--dark-light);
 		span {
@@ -50,7 +50,7 @@ export const InvoiceStatus = ({ status }) => {
 	return (
 		<StyledInvoiceStatus className={status}>
 			<span></span>
-			<p>{status}</p>
+			<p>{status.toLocaleLowerCase()}</p>
 		</StyledInvoiceStatus>
 	);
 };

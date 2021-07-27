@@ -85,8 +85,8 @@ const StyledInvoiceForm = styled.div`
 	}
 `;
 
-let toDateInputValue = () => {
-	let local = new Date();
+let toDateInputValue = (date) => {
+	let local = date ? new Date(date) : new Date();
 	local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
 	return local.toJSON().slice(0, 10);
 };
@@ -111,7 +111,7 @@ const initialValues = {
 		paymentDue: toDateInputValue(),
 	},
 	description: '',
-	itemList: [
+	invoiceItems: [
 		{
 			itemName: '',
 			qty: '',
@@ -278,6 +278,7 @@ const createInvoice = async (val, jwt) => {
 export {
 	initialValues,
 	StyledInvoiceForm,
+	toDateInputValue,
 	validate,
 	validateItemName,
 	validateItemQty,

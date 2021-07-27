@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { useHistory } from 'react-router-dom';
 import { InvoiceStatus } from '../InvoiceStatus';
+import { toDateInputValue } from '../../invoice/InvoiceFormHelpers';
 
 const StyledInvoiceListItem = styled.li`
 	background: #fff;
@@ -87,27 +88,27 @@ const StyledInvoiceListItem = styled.li`
 	}
 `;
 
-export const InvoiceListItem = () => {
+export const InvoiceListItem = ({ invoice }) => {
 	const history = useHistory();
 
 	const clickHandler = () => {
-		history.push('/invoice/:id');
+		history.push(`/invoice/${invoice.id}`);
 	};
 
 	return (
 		<StyledInvoiceListItem onClick={clickHandler}>
 			<div className="wrapper wrapper-1">
 				<p className="id">
-					#<span>RT3080</span>
+					#<span>{invoice.key}</span>
 				</p>
-				<p className="date">Due 19 Aug 2021</p>
+				<p className="date">Due {toDateInputValue(invoice.terms.paymentDue)}</p>
 			</div>
 			<div className="wrapper wrapper-2">
 				<div className="wrapper-3">
-					<p className="name">Jensen Rosvelt</p>
-					<p className="price">$ 1,800.90</p>
+					<p className="name">{invoice.to.clientName}</p>
+					<p className="price">$ {invoice.total}</p>
 				</div>
-				<InvoiceStatus status="paid" />
+				<InvoiceStatus status={invoice.status} />
 			</div>
 			<div className="cta">
 				<RiArrowRightSLine />
