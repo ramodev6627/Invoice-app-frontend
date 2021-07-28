@@ -8,14 +8,14 @@ const StyledInvoicesList = styled.ul`
 	list-style-type: none;
 `;
 
-export const InvoicesList = ({ className }) => {
+export const InvoicesList = ({ className, pageIndex }) => {
 	const jwt = useSelector((state) => state.auth.jwt);
 	const dispatch = useDispatch();
 	const invoiceList = useSelector((state) => state.invoice.invoiceList);
 
 	useEffect(() => {
-		dispatch(fetchInvoiceList(jwt));
-	}, [jwt, dispatch]);
+		dispatch(fetchInvoiceList(jwt, pageIndex - 1));
+	}, [jwt, pageIndex, dispatch]);
 
 	return (
 		<StyledInvoicesList className={className}>

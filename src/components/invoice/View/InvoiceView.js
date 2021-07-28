@@ -32,7 +32,7 @@ export const InvoiceView = () => {
 	return (
 		<StyledInvoiceView>
 			<BackButton />
-			<InvoiceViewHeader status={invoice.status} />
+			<InvoiceViewHeader status={invoice.status} invoiceId={invoice.id} />
 			<div className="container">
 				<div className="info">
 					<div className="parent-wrapper">

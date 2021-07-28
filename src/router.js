@@ -12,6 +12,9 @@ export const Router = () => {
 			<Route exact path="/">
 				<Redirect to="/invoices/1" />
 			</Route>
+			<Route exact path="/invoices">
+				<Redirect to="/invoices/1" />
+			</Route>
 			<Route exact path="/invoices/:pageIndex">
 				{user ? <Home /> : <Redirect to="/login" />}
 			</Route>

@@ -25,10 +25,15 @@ export const invoiceSlice = createSlice({
 			state.invoiceList = action.payload.content;
 			state.invoiceListInfo = action.payload;
 		},
+		clearState: (state) => {
+			state.invoice = null;
+			state.invoiceList = null;
+			state.invoiceListInfo = null;
+		},
 	},
 });
 
-export const { setInvoice, setInvoiceList } = invoiceSlice.actions;
+export const { setInvoice, setInvoiceList, clearState } = invoiceSlice.actions;
 
 export const fetchInvoice = (payload) => async (dispatch) => {
 	try {
@@ -47,18 +52,37 @@ export const fetchInvoice = (payload) => async (dispatch) => {
 	}
 };
 
-export const fetchInvoiceList = (jwt) => async (dispatch) => {
+export const fetchInvoiceList =
+	(jwt, page = 0, size = 10) =>
+	async (dispatch) => {
+		try {
+			let res = await axios({
+				method: 'GET',
+				url: `https://zeneoinvoices.herokuapp.com/invoices?page=${page}&size=${size}&sort=createdAt`,
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${jwt}`,
+				},
+			});
+			dispatch(setInvoiceList(res.data));
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+export const updateInvoiceStatus = (jwt, invoiceId, status) => async (dispatch) => {
 	try {
 		let res = await axios({
-			method: 'GET',
-			url: `https://zeneoinvoices.herokuapp.com/invoices`,
+			method: 'PUT',
+			url: `https://zeneoinvoices.herokuapp.com/invoices/status/${invoiceId}/${status}`,
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${jwt}`,
 			},
 		});
-		dispatch(setInvoiceList(res.data));
+		dispatch(setInvoice(res.data));
 	} catch (err) {
 		console.log(err);
 	}

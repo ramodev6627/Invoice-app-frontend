@@ -5,6 +5,7 @@ import profilePic from '../images/pexels-pixabay-220453.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../auth/AuthSlice';
 import { useHistory } from 'react-router-dom';
+import { clearState } from '../invoice/InvoiceSlice';
 
 const StyledProfileWidget = styled.div`
 	position: relative;
@@ -78,6 +79,7 @@ export const ProfileWidget = () => {
 					<li
 						onClick={() => {
 							dispatch(logout());
+							dispatch(clearState());
 							history.push('/login');
 						}}
 					>

@@ -112,14 +112,16 @@ const StyledHomeHeader = styled.div`
 	}
 `;
 
-export const HomeHeader = ({ className }) => {
+export const HomeHeader = ({ className, totalPages, totalInvoices }) => {
 	const [showDropDown, setShowDropDown] = useState(false);
 
 	return (
 		<StyledHomeHeader className={className}>
 			<div className="header">
 				<h1>Invoices</h1>
-				<p>5 Invoices, 1 page.</p>
+				<p>
+					{totalInvoices} Invoices, {totalPages} page.
+				</p>
 			</div>
 			<div className="filter">
 				<button onClick={() => setShowDropDown((prev) => !prev)}>

@@ -1,8 +1,10 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../core/Button';
 import { InvoiceStatus } from '../../core/InvoiceStatus';
+import { updateInvoiceStatus } from '../InvoiceSlice';
 
 const StyledInvoiceViewHeader = styled.div`
 	max-width: 1000px;
@@ -69,7 +71,14 @@ const StyledInvoiceViewHeader = styled.div`
 	}
 `;
 
-export const InvoiceViewHeader = ({ status }) => {
+export const InvoiceViewHeader = ({ status, invoiceId }) => {
+	const dispatch = useDispatch();
+	const jwt = useSelector((state) => state.auth.jwt);
+
+	const clickHandler = (status) => {
+		dispatch(updateInvoiceStatus(jwt, invoiceId, status));
+	};
+
 	return (
 		<StyledInvoiceViewHeader>
 			<div className="status">
@@ -79,7 +88,19 @@ export const InvoiceViewHeader = ({ status }) => {
 			<div className="cta">
 				<Link to="/invoice/id/edit">Edit</Link>
 				<Button text="Delete" className="red rounded margin-left" />
-				<Button text="Mark as Paid" className="rounded margin-left" />
+				{status === 'PAID' ? (
+					<Button
+						text="Mark as Pending"
+						handleClick={() => clickHandler('PENDING')}
+						className="rounded margin-left"
+					/>
+				) : (
+					<Button
+						text="Mark as Paid"
+						handleClick={() => clickHandler('PAID')}
+						className="rounded margin-left"
+					/>
+				)}
 			</div>
 		</StyledInvoiceViewHeader>
 	);
