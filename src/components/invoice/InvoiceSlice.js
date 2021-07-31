@@ -91,4 +91,21 @@ export const updateInvoiceStatus = (jwt, invoiceId, status) => async (dispatch) 
 	}
 };
 
+export const deleteInvoice = (jwt, invoiceId) => async (dispatch) => {
+	try {
+		await axios({
+			method: 'DELETE',
+			url: `https://zeneoinvoices.herokuapp.com/invoices/${invoiceId}`,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${jwt}`,
+			},
+		});
+		dispatch(clearState());
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 export default invoiceSlice.reducer;

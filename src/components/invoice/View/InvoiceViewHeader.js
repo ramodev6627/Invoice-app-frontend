@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../../core/Button';
 import { InvoiceStatus } from '../../core/InvoiceStatus';
-import { updateInvoiceStatus } from '../InvoiceSlice';
+import { deleteInvoice, updateInvoiceStatus } from '../InvoiceSlice';
 
 const StyledInvoiceViewHeader = styled.div`
 	max-width: 1000px;
@@ -74,9 +74,15 @@ const StyledInvoiceViewHeader = styled.div`
 export const InvoiceViewHeader = ({ status, invoiceId }) => {
 	const dispatch = useDispatch();
 	const jwt = useSelector((state) => state.auth.jwt);
+	const history = useHistory();
 
-	const clickHandler = (status) => {
+	const changeStatus = (status) => {
 		dispatch(updateInvoiceStatus(jwt, invoiceId, status));
+	};
+
+	const deleteHandler = () => {
+		dispatch(deleteInvoice(jwt, invoiceId));
+		history.push('/');
 	};
 
 	return (
@@ -87,17 +93,17 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 			</div>
 			<div className="cta">
 				<Link to={`/invoice/${invoiceId}/edit`}>Edit</Link>
-				<Button text="Delete" className="red rounded margin-left" />
+				<Button text="Delete" className="red rounded margin-left" handleClick={deleteHandler} />
 				{status === 'PAID' ? (
 					<Button
 						text="Mark as Pending"
-						handleClick={() => clickHandler('PENDING')}
+						handleClick={() => changeStatus('PENDING')}
 						className="rounded margin-left"
 					/>
 				) : (
 					<Button
 						text="Mark as Paid"
-						handleClick={() => clickHandler('PAID')}
+						handleClick={() => changeStatus('PAID')}
 						className="rounded margin-left"
 					/>
 				)}
