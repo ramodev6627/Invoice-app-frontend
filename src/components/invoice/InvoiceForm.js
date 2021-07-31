@@ -1,28 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FieldArray, Form, Formik } from 'formik';
 import { TextArea } from '../core/TextArea';
 import { Button } from '../core/Button';
 import { InvoiceFormField } from './InvoiceFormField';
 import { InvoiceFormItem } from './InvoiceFormItem';
-import { createInvoice, initialValues, StyledInvoiceForm, validate } from './InvoiceFormHelpers';
+import {
+	createInvoice,
+	editInvoice,
+	initialValues,
+	StyledInvoiceForm,
+	validate,
+} from './InvoiceFormHelpers';
 import { BackButton } from '../core/BackButton';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchInvoice } from './InvoiceSlice';
 
 export const InvoiceForm = () => {
 	const match = useRouteMatch();
 	const history = useHistory();
 	const jwt = useSelector((state) => state.auth.jwt);
+	const user = useSelector((state) => state.auth.user);
+	const invoice = useSelector((state) => state.invoice.invoice);
+	const dispatch = useDispatch();
+	const [valuesToEdit, setValuesToEdit] = useState(initialValues);
+	const [valuesSet, setValuesSet] = useState(false);
 	let editView = match.path === '/invoice/:invoiceId/edit' ? true : false;
+
+	useEffect(() => {
+		if (editView) {
+			dispatch(fetchInvoice({ id: match.params.invoiceId, jwt }));
+		}
+		// eslint-disable-next-line
+	}, [editView]);
+
+	if (!valuesSet && editView && invoice && match.params.invoiceId === invoice.id) {
+		setValuesSet(true);
+		setValuesToEdit(invoice);
+	}
 
 	const submitHandler = async (val) => {
 		if (editView) {
 			//edit the invoice
-			console.log(val);
+			try {
+				let payload = { ...val, id: match.params.invoiceId, userId: user.id };
+				let response = await editInvoice(payload, jwt);
+				history.push(`/invoice/${response.id}`);
+			} catch (err) {
+				console.log(err);
+			}
 		} else {
 			//create new invoice
 			try {
 				let response = await createInvoice(val, jwt);
+				console.log(response);
 				history.push(`/invoice/${response.id}`);
 			} catch (err) {
 				console.log(err);
@@ -30,14 +61,16 @@ export const InvoiceForm = () => {
 		}
 	};
 
-	// let valuesToEdit ; //values to pass to formik as initial values
+	if (editView && !invoice) {
+		return null;
+	}
 
 	return (
 		<StyledInvoiceForm>
 			<div className="container">
 				<BackButton />
 				<h1>{editView ? 'Edit Invoice' : 'New Invoice'}</h1>
-				<Formik initialValues={initialValues} onSubmit={submitHandler} validate={validate}>
+				<Formik initialValues={valuesToEdit} onSubmit={submitHandler} validate={validate}>
 					{({ values, errors, touched, handleBlur }) => (
 						<Form>
 							<div className="from">

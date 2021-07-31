@@ -118,6 +118,9 @@ const initialValues = {
 			price: '',
 		},
 	],
+	key: '',
+	id: null,
+	userId: '',
 	status: 'PENDING',
 };
 
@@ -260,9 +263,27 @@ const validateItemPrice = (val) => {
 const createInvoice = async (val, jwt) => {
 	try {
 		let res = await axios({
-			method: 'post',
+			method: 'POST',
 			url: 'https://zeneoinvoices.herokuapp.com/invoices',
 			data: val,
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${jwt}`,
+			},
+		});
+		return await res.data;
+	} catch (err) {
+		return Promise.reject(err);
+	}
+};
+
+const editInvoice = async (payload, jwt) => {
+	try {
+		let res = await axios({
+			method: 'PUT',
+			url: 'https://zeneoinvoices.herokuapp.com/invoices',
+			data: payload,
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
@@ -284,4 +305,5 @@ export {
 	validateItemQty,
 	validateItemPrice,
 	createInvoice,
+	editInvoice,
 };

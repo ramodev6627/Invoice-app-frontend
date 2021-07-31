@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toDateInputValue } from './InvoiceFormHelpers';
 
 export const invoiceSlice = createSlice({
 	name: 'invoice',
@@ -11,6 +12,8 @@ export const invoiceSlice = createSlice({
 	reducers: {
 		setInvoice: (state, action) => {
 			state.invoice = action.payload;
+			state.invoice.terms.invoiceDate = toDateInputValue(state.invoice.terms.invoiceDate);
+			state.invoice.terms.paymentDue = toDateInputValue(state.invoice.terms.paymentDue);
 		},
 		setInvoiceList: (state, action) => {
 			action.payload.content.forEach((el) => {

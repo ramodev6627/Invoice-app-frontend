@@ -50,18 +50,20 @@ export const InvoiceFormField = ({
 				if (typeof errors[formikValue] !== 'undefined') {
 					setErrorMessage(errors[formikValue]);
 				} else {
-					setErrorMessage(false);
+					setErrorMessage(null);
 				}
-			} else if (nestedKeys.length === 2 && Object.keys(errors).length > 1) {
+			} else if (nestedKeys.length === 2 && Object.keys(errors).length >= 1) {
 				if (
 					typeof errors[nestedKeys[0]] !== 'undefined' &&
 					typeof errors[nestedKeys[0]][nestedKeys[1]] !== 'undefined'
 				) {
 					setErrorMessage(errors[nestedKeys[0]][nestedKeys[1]]);
 				} else {
-					setErrorMessage(false);
+					setErrorMessage(null);
 				}
 			}
+		} else {
+			setErrorMessage(null);
 		}
 	}, [errors, formikValue]);
 

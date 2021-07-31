@@ -7,7 +7,6 @@ import { StyledInvoiceView } from './InvoiceViewHelpers';
 import { fetchInvoice } from '../InvoiceSlice';
 import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { toDateInputValue } from '../InvoiceFormHelpers';
 
 export const InvoiceView = () => {
 	const match = useRouteMatch();
@@ -40,7 +39,7 @@ export const InvoiceView = () => {
 							<p className="id">
 								#<span>{invoice.key}</span>
 							</p>
-							<p className="title">{toDateInputValue(invoice.terms.invoiceDate)}</p>
+							<p className="title">{invoice.terms.invoiceDate}</p>
 						</div>
 						<div className="wrapper">
 							<p className="address">{invoice.from.streetAddress}</p>
@@ -54,11 +53,11 @@ export const InvoiceView = () => {
 							<div className="dates">
 								<div className="date">
 									<p>Invoice Date</p>
-									<p className="strong">{toDateInputValue(invoice.terms.invoiceDate)}</p>
+									<p className="strong">{invoice.terms.invoiceDate}</p>
 								</div>
 								<div className="due">
 									<p>Payment Due</p>
-									<p className="strong">{toDateInputValue(invoice.terms.paymentDue)}</p>
+									<p className="strong">{invoice.terms.paymentDue}</p>
 								</div>
 							</div>
 							<div className="bill-to">
@@ -75,6 +74,9 @@ export const InvoiceView = () => {
 							<p className="strong">{invoice.to.clientEmail}</p>
 						</div>
 					</div>
+				</div>
+				<div className="description">
+					<p>{invoice.description}</p>
 				</div>
 				<ul className="list">
 					<InvoiceViewItem className="head" />

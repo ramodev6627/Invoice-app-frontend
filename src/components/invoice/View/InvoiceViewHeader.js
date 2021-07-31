@@ -86,7 +86,7 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 				<InvoiceStatus status={status} />
 			</div>
 			<div className="cta">
-				<Link to="/invoice/id/edit">Edit</Link>
+				<Link to={`/invoice/${invoiceId}/edit`}>Edit</Link>
 				<Button text="Delete" className="red rounded margin-left" />
 				{status === 'PAID' ? (
 					<Button

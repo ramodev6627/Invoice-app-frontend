@@ -48,6 +48,13 @@ export const StyledInvoiceView = styled.div`
 		justify-content: space-between;
 	}
 
+	.description {
+		p {
+			margin-bottom: 1.8em;
+			font-size: 15px;
+		}
+	}
+
 	.list {
 		list-style-type: none;
 		padding: 1em;
