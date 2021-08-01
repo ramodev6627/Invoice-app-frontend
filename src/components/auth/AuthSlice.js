@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-let initialJwt = typeof window !== undefined ? JSON.parse(localStorage.getItem('jwt')) : null;
+let initialJwt = typeof window !== undefined ? localStorage.getItem('jwt') : null;
 
 let decoded_jwt = !initialJwt ? null : jwt_decode(initialJwt);
 let initialUser = !decoded_jwt

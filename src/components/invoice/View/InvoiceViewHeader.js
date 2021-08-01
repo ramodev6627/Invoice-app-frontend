@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Button } from '../../core/Button';
 import { InvoiceStatus } from '../../core/InvoiceStatus';
 import { deleteInvoice, updateInvoiceStatus } from '../InvoiceSlice';
+import InvoiceDeleteModal from './InvoiceDeleteModal';
 
 const StyledInvoiceViewHeader = styled.div`
 	max-width: 1000px;
@@ -76,6 +77,8 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 	const jwt = useSelector((state) => state.auth.jwt);
 	const history = useHistory();
 	const [statusChangeLoading, setStatusChangeLoading] = useState(false);
+	const [deleteLoading, setDeleteLoading] = useState(false);
+	const [deleteModal, setDeleteModal] = useState(false);
 
 	const changeStatus = (status) => {
 		setStatusChangeLoading(true);
@@ -87,19 +90,37 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 	};
 
 	const deleteHandler = () => {
-		dispatch(deleteInvoice(jwt, invoiceId));
-		history.push('/');
+		setDeleteLoading(true);
+		dispatch(deleteInvoice(jwt, invoiceId))
+			.then(() => {
+				history.push('/');
+			})
+			.catch((err) => {
+				console.log(err);
+				setDeleteLoading(false);
+			});
 	};
 
 	return (
 		<StyledInvoiceViewHeader>
+			{deleteModal && (
+				<InvoiceDeleteModal
+					closeModal={() => setDeleteModal(false)}
+					loading={deleteLoading}
+					deleteHandler={deleteHandler}
+				/>
+			)}
 			<div className="status">
 				<p className="title">Status</p>
 				<InvoiceStatus status={status} />
 			</div>
 			<div className="cta">
 				<Link to={`/invoice/${invoiceId}/edit`}>Edit</Link>
-				<Button text="Delete" className="red rounded margin-left" handleClick={deleteHandler} />
+				<Button
+					text="Delete"
+					className="red rounded margin-left"
+					handleClick={() => setDeleteModal(true)}
+				/>
 				{status === 'PAID' ? (
 					<Button
 						text="Mark as Pending"

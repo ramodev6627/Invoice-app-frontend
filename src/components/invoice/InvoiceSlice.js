@@ -104,7 +104,7 @@ export const deleteInvoice = (jwt, invoiceId) => async (dispatch) => {
 		});
 		dispatch(clearState());
 	} catch (err) {
-		console.log(err);
+		return Promise.reject(err);
 	}
 };
 
