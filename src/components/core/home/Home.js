@@ -1,7 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { changeInvoiceListFilter } from '../../invoice/InvoiceSlice';
 import { HomeHeader } from './HomeHeader';
 import { InvoicesList } from './InvoicesList';
 import { Pagination } from './Pagination';
@@ -18,7 +19,12 @@ const StyledHome = styled.div`
 
 export const Home = () => {
 	const paginationInfo = useSelector((state) => state.invoice.invoiceListInfo);
+	const dispatch = useDispatch();
 	const { pageIndex } = useParams();
+
+	const filterClick = (status) => {
+		dispatch(changeInvoiceListFilter(status));
+	};
 
 	return (
 		<StyledHome>
@@ -27,6 +33,7 @@ export const Home = () => {
 					className="header"
 					totalPages={paginationInfo.totalPages}
 					totalInvoices={paginationInfo.totalElements}
+					filterClick={filterClick}
 				/>
 			)}
 			<InvoicesList className="list" pageIndex={pageIndex} />

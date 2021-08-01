@@ -8,6 +8,7 @@ export const invoiceSlice = createSlice({
 		invoice: null,
 		invoiceList: null,
 		invoiceListInfo: null,
+		invoiceListFilter: null,
 	},
 	reducers: {
 		setInvoice: (state, action) => {
@@ -33,10 +34,14 @@ export const invoiceSlice = createSlice({
 			state.invoiceList = null;
 			state.invoiceListInfo = null;
 		},
+		changeInvoiceListFilter: (state, action) => {
+			state.invoiceListFilter = action.payload;
+		},
 	},
 });
 
-export const { setInvoice, setInvoiceList, clearState } = invoiceSlice.actions;
+export const { setInvoice, setInvoiceList, clearState, changeInvoiceListFilter } =
+	invoiceSlice.actions;
 
 export const fetchInvoice = (payload) => async (dispatch) => {
 	try {
@@ -56,12 +61,16 @@ export const fetchInvoice = (payload) => async (dispatch) => {
 };
 
 export const fetchInvoiceList =
-	(jwt, page = 0, size = 10) =>
+	({ jwt, page, size, filter }) =>
 	async (dispatch) => {
+		let url = `https://zeneoinvoices.herokuapp.com/invoices?page=${page}&size=${size}&sort=createdAt&order=desc`;
+		if (filter) {
+			url = `https://zeneoinvoices.herokuapp.com/invoices?page=${page}&size=${size}&status=${filter.toUpperCase()}&sort=createdAt&order=desc`;
+		}
 		try {
 			let res = await axios({
 				method: 'GET',
-				url: `https://zeneoinvoices.herokuapp.com/invoices?page=${page}&size=${size}&sort=createdAt`,
+				url,
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',

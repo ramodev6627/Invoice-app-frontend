@@ -13,11 +13,21 @@ export const InvoicesList = ({ className, pageIndex }) => {
 	const jwt = useSelector((state) => state.auth.jwt);
 	const dispatch = useDispatch();
 	const invoiceList = useSelector((state) => state.invoice.invoiceList);
+	const filter = useSelector((state) => state.invoice.invoiceListFilter);
 	const [invoiceLoading, setInvoiceLoading] = useState(false);
 
 	useEffect(() => {
 		setInvoiceLoading(true);
-		dispatch(fetchInvoiceList(jwt, pageIndex - 1))
+		let payload = {
+			jwt,
+			page: pageIndex - 1,
+			size: 10,
+		};
+		if (filter) {
+			payload.filter = filter;
+		}
+
+		dispatch(fetchInvoiceList(payload))
 			.then(() => {
 				setInvoiceLoading(false);
 			})
@@ -25,7 +35,7 @@ export const InvoicesList = ({ className, pageIndex }) => {
 				console.log(err);
 				setInvoiceLoading(false);
 			});
-	}, [jwt, pageIndex, dispatch]);
+	}, [jwt, pageIndex, dispatch, filter]);
 
 	if (invoiceLoading) {
 		return <Loading />;

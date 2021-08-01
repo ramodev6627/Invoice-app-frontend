@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { IoIosAddCircle } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const StyledHomeHeader = styled.div`
 	color: var(--typo);
@@ -54,7 +55,7 @@ const StyledHomeHeader = styled.div`
 			padding: 0.5em 0.8em;
 			display: flex;
 			align-items: center;
-			cursor: context-menu;
+			cursor: pointer;
 
 			:hover {
 				opacity: 0.7;
@@ -112,8 +113,9 @@ const StyledHomeHeader = styled.div`
 	}
 `;
 
-export const HomeHeader = ({ className, totalPages, totalInvoices }) => {
+export const HomeHeader = ({ className, totalPages, totalInvoices, filterClick }) => {
 	const [showDropDown, setShowDropDown] = useState(false);
+	const filter = useSelector((state) => state.invoice.invoiceListFilter);
 
 	return (
 		<StyledHomeHeader className={className}>
@@ -125,21 +127,21 @@ export const HomeHeader = ({ className, totalPages, totalInvoices }) => {
 			</div>
 			<div className="filter">
 				<button onClick={() => setShowDropDown((prev) => !prev)}>
-					<span>Filter By Status</span>
+					<span>Filter By {filter ? filter : 'Status'}</span>
 					{showDropDown ? <FaChevronUp /> : <FaChevronDown />}
 				</button>
 				{showDropDown && (
 					<ul className="dropdown">
-						<li>
+						<li onClick={() => filterClick('Paid')}>
 							<span>Paid</span>
 						</li>
 						<div className="divider"></div>
-						<li>
+						<li onClick={() => filterClick('Pending')}>
 							<span>Pending</span>
 						</li>
 						<div className="divider"></div>
-						<li>
-							<span>Draft</span>
+						<li onClick={() => filterClick(null)}>
+							<span>None</span>
 						</li>
 					</ul>
 				)}
