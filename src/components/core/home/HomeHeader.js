@@ -132,15 +132,30 @@ export const HomeHeader = ({ className, totalPages, totalInvoices, filterClick }
 				</button>
 				{showDropDown && (
 					<ul className="dropdown">
-						<li onClick={() => filterClick('Paid')}>
+						<li
+							onClick={() => {
+								filterClick('Paid');
+								setShowDropDown(false);
+							}}
+						>
 							<span>Paid</span>
 						</li>
 						<div className="divider"></div>
-						<li onClick={() => filterClick('Pending')}>
+						<li
+							onClick={() => {
+								filterClick('Pending');
+								setShowDropDown(false);
+							}}
+						>
 							<span>Pending</span>
 						</li>
 						<div className="divider"></div>
-						<li onClick={() => filterClick(null)}>
+						<li
+							onClick={() => {
+								filterClick(null);
+								setShowDropDown(false);
+							}}
+						>
 							<span>None</span>
 						</li>
 					</ul>
