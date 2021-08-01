@@ -55,7 +55,7 @@ const StyledInvoiceForm = styled.div`
 		button {
 			font-size: 1.2rem;
 			font-weight: 500;
-			display: block;
+			display: flex;
 			margin-left: auto;
 			border-radius: 40px;
 		}

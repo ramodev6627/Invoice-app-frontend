@@ -26,6 +26,7 @@ export const InvoiceForm = () => {
 	const [valuesToEdit, setValuesToEdit] = useState(initialValues);
 	const [valuesSet, setValuesSet] = useState(false);
 	let editView = match.path === '/invoice/:invoiceId/edit' ? true : false;
+	const [submitLoading, setSubmitLoading] = useState(false);
 
 	useEffect(() => {
 		if (editView) {
@@ -40,6 +41,7 @@ export const InvoiceForm = () => {
 	}
 
 	const submitHandler = async (val) => {
+		setSubmitLoading(true);
 		if (editView) {
 			//edit the invoice
 			try {
@@ -47,6 +49,7 @@ export const InvoiceForm = () => {
 				let response = await editInvoice(payload, jwt);
 				history.push(`/invoice/${response.id}`);
 			} catch (err) {
+				setSubmitLoading(false);
 				console.log(err);
 			}
 		} else {
@@ -56,6 +59,7 @@ export const InvoiceForm = () => {
 				console.log(response);
 				history.push(`/invoice/${response.id}`);
 			} catch (err) {
+				setSubmitLoading(false);
 				console.log(err);
 			}
 		}
@@ -222,7 +226,7 @@ export const InvoiceForm = () => {
 								</FieldArray>
 							</div>
 							<div className="footer">
-								<Button type="submit" text="Submit" />
+								<Button type="submit" text="Submit" loading={submitLoading} />
 							</div>
 						</Form>
 					)}

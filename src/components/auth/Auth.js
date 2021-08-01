@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from '../core/Button';
@@ -36,16 +36,24 @@ export const Auth = () => {
 	const location = useLocation();
 	let loginView = location.pathname === '/login' ? true : false;
 	const dispatch = useDispatch();
+	const [authLoading, setAuthLoading] = useState(false);
 
 	const formik = useFormik({
 		initialValues: loginView ? loginInitialValues : signupInitialValues,
 		onSubmit: (val) => {
+			setAuthLoading(true);
 			if (loginView) {
 				//login
-				dispatch(login(val));
+				dispatch(login(val)).catch((err) => {
+					console.log(err);
+					setAuthLoading(false);
+				});
 			} else {
 				//signup
-				dispatch(signup(val));
+				dispatch(signup(val)).catch((err) => {
+					console.log(err);
+					setAuthLoading(false);
+				});
 			}
 		},
 		validate: loginView ? validateLogin : validateSignup,
@@ -60,7 +68,7 @@ export const Auth = () => {
 					<AuthField type="email" formik={formik} />
 					{!loginView && <AuthField formik={formik} type="username" />}
 					<AuthField type="password" formik={formik} />
-					<Button type="submit" text={loginView ? 'Login' : 'Sign Up'} />
+					<Button type="submit" text={loginView ? 'Login' : 'Sign Up'} loading={authLoading} />
 				</form>
 				<div className="footer dimensions">
 					<p>{loginView ? 'No account?' : 'Already have an acount?'}</p>

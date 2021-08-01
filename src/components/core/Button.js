@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const StyledButton = styled.button`
 	padding: 0.7em 0.9em;
@@ -36,19 +36,58 @@ const StyledButton = styled.button`
 	&.red {
 		background-color: #fb5151;
 	}
+	&.loading {
+		padding: 0.5em 1.5em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		align-self: stretch;
+		margin-top: 1em;
+	}
 `;
 
-export const Button = ({ text, type, children, handleClick, className }) => {
+const ldsDualRing = keyframes`
+ 0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const StyledLoading = styled.div`
+	display: inline-block;
+
+	&:after {
+		content: '';
+		display: block;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		border: 2px solid #fff;
+		border-color: #fff transparent #fff transparent;
+		animation: ${ldsDualRing} 0.5s linear infinite;
+	}
+`;
+
+const Loading = () => <StyledLoading></StyledLoading>;
+
+export const Button = ({ text, type, children, handleClick, className, loading }) => {
 	if (type === 'icon') {
 		return (
-			<StyledButton className="icon" onClick={handleClick}>
+			<StyledButton className={`icon ${loading && `loading`}`} onClick={handleClick}>
 				{children}
+				{loading && <Loading />}
 			</StyledButton>
 		);
 	}
 	return (
-		<StyledButton type={type} className={className} onClick={handleClick}>
-			{text}
+		<StyledButton
+			type={type}
+			className={`${className} ${loading && `loading`}`}
+			onClick={handleClick}
+		>
+			{loading ? <Loading /> : text}
 		</StyledButton>
 	);
 };
@@ -56,4 +95,5 @@ export const Button = ({ text, type, children, handleClick, className }) => {
 Button.defaultProps = {
 	text: 'Click Me',
 	type: 'button',
+	loading: false,
 };

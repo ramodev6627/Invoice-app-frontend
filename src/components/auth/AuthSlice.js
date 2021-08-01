@@ -26,7 +26,7 @@ export const authSlice = createSlice({
 			state.user = null;
 		},
 		authenticate: (state, action) => {
-			let jwt = JSON.stringify(action.payload);
+			let jwt = action.payload;
 			localStorage.setItem('jwt', jwt);
 			state.jwt = jwt;
 			let decoded_jwt = jwt_decode(jwt);
@@ -61,7 +61,7 @@ export const signup = (payload) => async (dispatch) => {
 
 		dispatch(authenticate(res.headers.authorization));
 	} catch (err) {
-		console.log(err);
+		return Promise.reject(err);
 	}
 };
 
@@ -78,7 +78,7 @@ export const login = (payload) => async (dispatch) => {
 		});
 		dispatch(authenticate(res.headers.authorization));
 	} catch (err) {
-		console.log(err);
+		return Promise.reject(err);
 	}
 };
 

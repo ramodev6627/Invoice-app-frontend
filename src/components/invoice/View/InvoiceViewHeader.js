@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -30,7 +30,7 @@ const StyledInvoiceViewHeader = styled.div`
 		justify-content: space-between;
 		flex-wrap: wrap;
 
-		button {
+		button:not(.loading) {
 			font-size: 0.95rem;
 			padding: 0.95em 1.7em;
 			margin-top: 1em;
@@ -75,9 +75,15 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 	const dispatch = useDispatch();
 	const jwt = useSelector((state) => state.auth.jwt);
 	const history = useHistory();
+	const [statusChangeLoading, setStatusChangeLoading] = useState(false);
 
 	const changeStatus = (status) => {
-		dispatch(updateInvoiceStatus(jwt, invoiceId, status));
+		setStatusChangeLoading(true);
+		dispatch(updateInvoiceStatus(jwt, invoiceId, status))
+			.then(() => {
+				setStatusChangeLoading(false);
+			})
+			.catch(console.log);
 	};
 
 	const deleteHandler = () => {
@@ -99,12 +105,14 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 						text="Mark as Pending"
 						handleClick={() => changeStatus('PENDING')}
 						className="rounded margin-left"
+						loading={statusChangeLoading}
 					/>
 				) : (
 					<Button
 						text="Mark as Paid"
 						handleClick={() => changeStatus('PAID')}
 						className="rounded margin-left"
+						loading={statusChangeLoading}
 					/>
 				)}
 			</div>
