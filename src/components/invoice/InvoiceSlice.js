@@ -51,7 +51,7 @@ export const fetchInvoice = (payload) => async (dispatch) => {
 		});
 		dispatch(setInvoice(res.data));
 	} catch (err) {
-		console.log(err);
+		return Promise.reject(err);
 	}
 };
 
@@ -70,7 +70,7 @@ export const fetchInvoiceList =
 			});
 			dispatch(setInvoiceList(res.data));
 		} catch (err) {
-			console.log(err);
+			return Promise.reject(err);
 		}
 	};
 

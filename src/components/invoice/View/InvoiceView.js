@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InvoiceViewHeader } from './InvoiceViewHeader';
 import { InvoiceViewItem } from './InvoiceViewItem';
 import { InvoiceViewFooter } from './InvoiceViewFooter';
@@ -7,17 +7,31 @@ import { StyledInvoiceView } from './InvoiceViewHelpers';
 import { fetchInvoice } from '../InvoiceSlice';
 import { useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Loading } from '../../core/Loading';
 
 export const InvoiceView = () => {
 	const match = useRouteMatch();
 	const jwt = useSelector((state) => state.auth.jwt);
 	const invoice = useSelector((state) => state.invoice.invoice);
 	const dispatch = useDispatch();
+	const [invoiceLoading, setInvoiceLoading] = useState(false);
 
 	useEffect(() => {
+		setInvoiceLoading(true);
 		let payload = { id: match.params.invoiceId, jwt };
-		dispatch(fetchInvoice(payload));
+		dispatch(fetchInvoice(payload))
+			.then(() => {
+				setInvoiceLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				setInvoiceLoading(false);
+			});
 	}, [match.params.invoiceId, jwt, dispatch]);
+
+	if (invoiceLoading) {
+		return <Loading />;
+	}
 
 	if (!invoice) {
 		return null;
