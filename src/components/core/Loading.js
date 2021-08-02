@@ -12,16 +12,16 @@ const ldsDualRing = keyframes`
 
 const StyledLoading = styled.div`
 	display: flex;
-	margin: 6em auto 3em;
+	margin: 15em auto 3em;
 	justify-content: center;
 
 	&:after {
 		content: '';
 		display: block;
-		width: 120px;
-		height: 120px;
+		width: 60px;
+		height: 60px;
 		border-radius: 50%;
-		border: 3px solid var(--primary);
+		border: 2px solid var(--primary);
 		border-color: var(--primary) transparent var(--primary) transparent;
 		animation: ${ldsDualRing} 0.5s linear infinite;
 	}

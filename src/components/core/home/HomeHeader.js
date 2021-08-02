@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 const StyledHomeHeader = styled.div`
 	color: var(--typo);
+	margin-top: 1.7em;
 
 	.header,
 	.filter {

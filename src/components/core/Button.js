@@ -9,7 +9,7 @@ const StyledButton = styled.button`
 	color: #fff;
 	font-size: 0.8rem;
 	font-weight: 700;
-	transition: opacity 0.1s ease-in;
+	transition: all 0.1s ease-in;
 
 	:hover {
 		opacity: 0.8;
@@ -33,8 +33,18 @@ const StyledButton = styled.button`
 		border-radius: 40px;
 	}
 
+	&.rounded.loading {
+		height: 46px;
+		width: 80px;
+		padding: 0;
+	}
+
 	&.red {
 		background-color: #fb5151;
+	}
+	&.gray {
+		background-color: #eeeeee;
+		color: var(--typo-light)
 	}
 	&.loading {
 		padding: 0.5em 1.5em;
@@ -42,7 +52,6 @@ const StyledButton = styled.button`
 		align-items: center;
 		justify-content: center;
 		align-self: stretch;
-		margin-top: 1em;
 	}
 `;
 
@@ -75,7 +84,7 @@ const Loading = () => <StyledLoading></StyledLoading>;
 export const Button = ({ text, type, children, handleClick, className, loading }) => {
 	if (type === 'icon') {
 		return (
-			<StyledButton className={`icon ${loading && `loading`}`} onClick={handleClick}>
+			<StyledButton className={`${className} icon ${loading && `loading`}`} onClick={handleClick}>
 				{children}
 				{loading && <Loading />}
 			</StyledButton>

@@ -34,11 +34,13 @@ const StyledInvoiceForm = styled.div`
 	}
 
 	.add-item {
-		width: 100%;
+		display: flex;
+		align-items: center;
 		padding: 0.7em;
 		border: 0;
 		border-radius: 40px;
-		font-size: 1.1rem;
+		font-size: 0.90rem;
+		font-weight: 600;
 		color: var(--white);
 		background: #7c5dff;
 		margin-top: 1em;
@@ -47,17 +49,27 @@ const StyledInvoiceForm = styled.div`
 		:hover {
 			opacity: 0.9;
 		}
+
+		svg {
+			margin-right: 5px;
+			font-size: 1.1rem;
+		}
+
 	}
+
 
 	.footer {
 		margin-top: 1.5em;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 
 		button {
-			font-size: 1.2rem;
-			font-weight: 500;
-			display: flex;
-			margin-left: auto;
+			font-size: 0.9rem;
+			font-weight: 600;
+			padding: 0.8em 1.7em;
 			border-radius: 40px;
+			margin-left: 1em;
 		}
 	}
 
@@ -235,7 +247,7 @@ const validate = (val) => {
 const validateItemName = (val) => {
 	let error;
 	if (!val) {
-		error = 'Item name is required';
+		error = 'name is required';
 	}
 	return error;
 };
@@ -243,9 +255,9 @@ const validateItemName = (val) => {
 const validateItemQty = (val) => {
 	let error;
 	if (!val) {
-		error = 'Item Qty is Required';
+		error = 'Qty is Required';
 	} else if (isNaN(val)) {
-		error = 'Item Qty MUST be a Number';
+		error = 'Qty MUST be a Number';
 	}
 	return error;
 };
@@ -253,9 +265,9 @@ const validateItemQty = (val) => {
 const validateItemPrice = (val) => {
 	let error;
 	if (!val) {
-		error = 'Item Price is Required';
+		error = 'Price is Required';
 	} else if (isNaN(val)) {
-		error = 'Item Price MUST be a Number';
+		error = 'Price MUST be a Number';
 	}
 	return error;
 };

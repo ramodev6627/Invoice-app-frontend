@@ -52,8 +52,8 @@ const StyledInvoiceFormItem = styled.li`
 
 	@media (min-width: 600px) {
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
+		align-items: baseline;
 
 		.col + .col {
 			margin-left: 1em;
@@ -80,6 +80,10 @@ const StyledInvoiceFormItem = styled.li`
 
 		.delete {
 			width: 7%;
+
+			button {
+				padding: 12px 0;
+			}
 		}
 	}
 `;

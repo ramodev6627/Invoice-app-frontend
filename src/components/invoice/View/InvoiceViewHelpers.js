@@ -7,7 +7,7 @@ export const StyledInvoiceView = styled.div`
 
 	.container {
 		max-width: 1000px;
-		margin: 4em 0;
+		margin: 2em 0;
 		width: 100%;
 		color: var(--typo-lighter);
 	}
@@ -22,7 +22,7 @@ export const StyledInvoiceView = styled.div`
 	}
 
 	.strong {
-		font-size: 1.1rem;
+		font-size: 1rem;
 		font-weight: 600;
 		color: var(--typo);
 	}
@@ -59,6 +59,8 @@ export const StyledInvoiceView = styled.div`
 		list-style-type: none;
 		padding: 1em;
 		background: var(--white);
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
 	}
 
 	@media (min-width: 700px) {

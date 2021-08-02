@@ -12,7 +12,8 @@ const StyledInvoiceViewHeader = styled.div`
 	margin-top: 1em;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 	background-color: #fff;
-	padding: 2em;
+	border-radius: 8px;
+	padding: 1.5em 2em;
 
 	.status {
 		display: flex;
@@ -34,12 +35,10 @@ const StyledInvoiceViewHeader = styled.div`
 		button:not(.loading) {
 			font-size: 0.95rem;
 			padding: 0.95em 1.7em;
-			margin-top: 1em;
 			display: block;
 		}
 
 		a {
-			margin-top: 1em;
 			text-decoration: none;
 			color: var(--typo-lighter);
 
@@ -115,7 +114,14 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 				<InvoiceStatus status={status} />
 			</div>
 			<div className="cta">
-				<Link to={`/invoice/${invoiceId}/edit`}>Edit</Link>
+				<Link className="margin-left" to={`/invoice/${invoiceId}/edit`}>
+					<Button
+						text="Edit"
+						className="gray rounded"
+						handleClick={() => setDeleteModal(true)}
+					/>
+				</Link>
+				
 				<Button
 					text="Delete"
 					className="red rounded margin-left"

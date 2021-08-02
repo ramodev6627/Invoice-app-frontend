@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { fetchInvoiceList } from '../../invoice/InvoiceSlice';
 import { InvoiceListItem } from './InvoiceListItem';
 import { Loading } from '../Loading';
+import { EmptyList } from './EmptyList';
 
 const StyledInvoicesList = styled.ul`
 	list-style-type: none;
@@ -48,7 +49,7 @@ export const InvoicesList = ({ className, pageIndex }) => {
 					return <InvoiceListItem key={val.id} invoice={val} />;
 				})
 			) : (
-				<p>No invoices to display</p>
+				<EmptyList />
 			)}
 		</StyledInvoicesList>
 	);

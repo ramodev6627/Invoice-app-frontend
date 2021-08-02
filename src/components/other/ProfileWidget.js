@@ -23,11 +23,13 @@ const StyledProfileWidget = styled.div`
 		}
 
 		p {
-			margin: 0 0.6em;
+			margin: 0 0.3em 0 0.6em;
+			font-weight: 600;
+			line-height: 1;
 		}
 
 		svg {
-			font-size: 25px;
+			font-size: 16px;
 		}
 	}
 

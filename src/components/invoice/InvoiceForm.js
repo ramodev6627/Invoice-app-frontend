@@ -11,6 +11,7 @@ import {
 	StyledInvoiceForm,
 	validate,
 } from './InvoiceFormHelpers';
+import { BiPlus } from "react-icons/bi";
 import { BackButton } from '../core/BackButton';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -208,6 +209,17 @@ export const InvoiceForm = () => {
 														);
 													})}
 											</ul>
+											{/* <Button handleClick={() =>
+													push({
+														itemName: '',
+														qty: '',
+														price: '',
+													})}
+													
+													type="icon"
+													className="add-item round">
+												<BiPlus /> Add New Item 
+											</Button> */}
 											<button
 												className="add-item"
 												type="button"
@@ -219,13 +231,14 @@ export const InvoiceForm = () => {
 													})
 												}
 											>
-												+ Add New Item
+												<BiPlus /> Add New Item
 											</button>
 										</>
 									)}
 								</FieldArray>
 							</div>
 							<div className="footer">
+								<Button text="Cancel" className="Rounded gray" />
 								<Button type="submit" text="Submit" loading={submitLoading} />
 							</div>
 						</Form>

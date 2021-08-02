@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const StyledInvoiceViewItem = styled.li`
 	&.head {
 		display: none;
+		margin-top: 0.5em;
 	}
 
 	&.row {
@@ -44,8 +45,7 @@ const StyledInvoiceViewItem = styled.li`
 			display: grid;
 			grid-template-columns: 5fr 1fr 2fr 2fr;
 			grid-template-rows: 1fr;
-			align-items: center;
-
+			align-items: start;
 			.price,
 			.qty,
 			.total {

@@ -25,7 +25,6 @@ const StyledInvoiceFormField = styled.div`
 	}
 
 	.error {
-		margin-top: 1em;
 		color: #f72a2a;
 	}
 `;
@@ -92,7 +91,7 @@ export const InvoiceFormField = ({
 				name={formikValue}
 				type={type}
 				onBlur={onBlur}
-				className={`${className} ${touchedState && (errorMessage ? 'error' : 'correct')}`}
+				className={`${className} ${touchedState && (errorMessage ? 'error' : '')}`}
 				component={component}
 			/>
 			{touchedState && errorMessage && <p className="error">{errorMessage}</p>}

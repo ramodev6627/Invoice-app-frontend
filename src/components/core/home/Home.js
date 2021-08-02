@@ -12,6 +12,7 @@ const StyledHome = styled.div`
 	max-width: 1100px;
 	margin: 0 auto;
 
+
 	.list {
 		margin: 2em 0 1em;
 	}
@@ -37,9 +38,9 @@ export const Home = () => {
 				/>
 			)}
 			<InvoicesList className="list" pageIndex={pageIndex} />
-			{paginationInfo && paginationInfo.totalPages && paginationInfo.totalPages > 0 && (
+			{paginationInfo && paginationInfo.totalPages && paginationInfo.totalPages > 1 ? (
 				<Pagination total={paginationInfo.totalPages} />
-			)}
+			) : null}
 		</StyledHome>
 	);
 };

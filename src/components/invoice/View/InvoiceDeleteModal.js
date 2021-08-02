@@ -18,7 +18,7 @@ const StyledInvoiceDeleteModal = styled.div`
 
 	.content {
 		width: 90%;
-		max-width: 1000px;
+		max-width: 500px;
 		background: #fff;
 		border-radius: 5px;
 		padding: 3em;

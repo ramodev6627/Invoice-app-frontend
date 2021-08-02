@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ProfileWidget } from '../other/ProfileWidget';
 import logo from '../images/main-logo.png';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
 	background: var(--primary);
@@ -35,7 +36,9 @@ export const Header = () => {
 
 	return (
 		<StyledHeader>
-			<img className="logo" src={logo} alt="invoice app" />
+			<Link to={"/"}>
+				<img className="logo" src={logo} alt="invoice app" />
+			</Link>
 			<ProfileWidget />
 		</StyledHeader>
 	);
