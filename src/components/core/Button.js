@@ -1,11 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 
 const StyledButton = styled.button`
 	padding: 0.7em 0.9em;
 	border-radius: 4px;
 	border: 0;
-	background: var(--primary);
+	background: ${(props) => props.theme.primary};
 	color: #fff;
 	font-size: 0.8rem;
 	font-weight: 700;
@@ -44,7 +45,7 @@ const StyledButton = styled.button`
 	}
 	&.gray {
 		background-color: #eeeeee;
-		color: var(--typo-light)
+		color: ${(props) => props.theme.typoLight};
 	}
 	&.loading {
 		padding: 0.5em 1.5em;
@@ -82,9 +83,16 @@ const StyledLoading = styled.div`
 const Loading = () => <StyledLoading></StyledLoading>;
 
 export const Button = ({ text, type, children, handleClick, className, loading }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
+
 	if (type === 'icon') {
 		return (
-			<StyledButton className={`${className} icon ${loading && `loading`}`} onClick={handleClick}>
+			<StyledButton
+				theme={theme}
+				className={`${className} icon ${loading && `loading`}`}
+				onClick={handleClick}
+			>
 				{children}
 				{loading && <Loading />}
 			</StyledButton>
@@ -92,6 +100,7 @@ export const Button = ({ text, type, children, handleClick, className, loading }
 	}
 	return (
 		<StyledButton
+			theme={theme}
 			type={type}
 			className={`${className} ${loading && `loading`}`}
 			onClick={handleClick}

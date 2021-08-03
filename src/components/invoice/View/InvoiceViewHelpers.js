@@ -9,22 +9,22 @@ export const StyledInvoiceView = styled.div`
 		max-width: 1000px;
 		margin: 2em 0;
 		width: 100%;
-		color: var(--typo-lighter);
+		color: ${(props) => props.theme.typoLighter};
 	}
 
 	.id {
-		color: var(--typo-lighter);
+		color: ${(props) => props.theme.typoLighter};
 		span {
 			font-size: 1.1rem;
 			font-weight: 600;
-			color: var(--typo);
+			color: ${(props) => props.theme.typo};
 		}
 	}
 
 	.strong {
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--typo);
+		color: ${(props) => props.theme.typo};
 	}
 
 	.wrapper,
@@ -58,7 +58,7 @@ export const StyledInvoiceView = styled.div`
 	.list {
 		list-style-type: none;
 		padding: 1em;
-		background: var(--white);
+		background: ${(props) => props.theme.background};
 		border-top-left-radius: 8px;
 		border-top-right-radius: 8px;
 	}

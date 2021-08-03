@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loading } from '../../core/Loading';
 
 export const InvoiceView = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const match = useRouteMatch();
 	const jwt = useSelector((state) => state.auth.jwt);
 	const invoice = useSelector((state) => state.invoice.invoice);
@@ -43,7 +45,7 @@ export const InvoiceView = () => {
 	});
 
 	return (
-		<StyledInvoiceView>
+		<StyledInvoiceView theme={theme}>
 			<BackButton />
 			<InvoiceViewHeader status={invoice.status} invoiceId={invoice.id} />
 			<div className="container">

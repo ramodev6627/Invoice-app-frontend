@@ -7,6 +7,7 @@ export const themeSlice = createSlice({
 		light: {
 			primary: '#7c5dff',
 			primaryDark: '#383a55',
+			background: '#f9f8fd',
 			white: '#f9f8fd',
 			typo: '#272830',
 			typoLight: '#272830cc',
@@ -25,10 +26,12 @@ export const themeSlice = createSlice({
 			if (state.current === 'light') {
 				state.current = 'dark';
 			} else {
-				state.current === 'light';
+				state.current = 'light';
 			}
 		},
 	},
 });
 
 export const { switchTheme } = themeSlice.actions;
+
+export default themeSlice.reducer;

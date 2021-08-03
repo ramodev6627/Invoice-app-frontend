@@ -4,12 +4,13 @@ import { TextInput } from '../core/TextInput';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const StyledInvoiceFormField = styled.div`
 	label {
 		margin: 0.5em 0;
 		display: block;
-		color: var(--typo-lighter);
+		color: ${(props) => props.theme.typoLighter};
 	}
 
 	.date-picker {
@@ -39,6 +40,8 @@ export const InvoiceFormField = ({
 	touched,
 	onBlur,
 }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [touchedState, setTouchedState] = useState(null);
 
@@ -85,7 +88,7 @@ export const InvoiceFormField = ({
 	}, [touched, formikValue]);
 
 	return (
-		<StyledInvoiceFormField className="input-container">
+		<StyledInvoiceFormField theme={theme} className="input-container">
 			<label htmlFor={formikValue}>{label}</label>
 			<Field
 				name={formikValue}

@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
-	background: var(--primary);
-	color: var(--white);
+	background: ${(props) => props.theme.primary};
+	color: ${(props) => props.theme.white};
 	padding: 0.2em 1.5em;
 	display: flex;
 	align-items: center;
@@ -22,21 +22,23 @@ const StyledHeader = styled.header`
 `;
 
 const EmptyHeader = styled.header`
-	background: var(--white);
+	background: ${(props) => props.theme.background};
 	width: 100%;
 	height: 60px;
 `;
 
 export const Header = () => {
 	const user = useSelector((state) => state.auth.user);
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 
 	if (!user) {
 		return <EmptyHeader />;
 	}
 
 	return (
-		<StyledHeader>
-			<Link to={"/"}>
+		<StyledHeader theme={theme}>
+			<Link to={'/'}>
 				<img className="logo" src={logo} alt="invoice app" />
 			</Link>
 			<ProfileWidget />

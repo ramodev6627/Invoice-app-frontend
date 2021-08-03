@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 
 const ldsDualRing = keyframes`
@@ -21,12 +22,15 @@ const StyledLoading = styled.div`
 		width: 60px;
 		height: 60px;
 		border-radius: 50%;
-		border: 2px solid var(--primary);
-		border-color: var(--primary) transparent var(--primary) transparent;
+		border: 2px solid ${(props) => props.theme.primary};
+		border-color: ${(props) => props.theme.primary} transparent ${(props) => props.theme.primary}
+			transparent;
 		animation: ${ldsDualRing} 0.5s linear infinite;
 	}
 `;
 
 export const Loading = () => {
-	return <StyledLoading></StyledLoading>;
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
+	return <StyledLoading theme={theme}></StyledLoading>;
 };

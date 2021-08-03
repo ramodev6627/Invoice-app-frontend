@@ -1,10 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledInvoiceViewFooter = styled.footer`
 	padding: 2em;
-	background: var(--primary-dark);
-	color: var(--white);
+	background: ${(props) => props.theme.primaryDark};
+	color: ${(props) => props.theme.white};
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -22,8 +23,10 @@ const StyledInvoiceViewFooter = styled.footer`
 `;
 
 export const InvoiceViewFooter = ({ total }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	return (
-		<StyledInvoiceViewFooter>
+		<StyledInvoiceViewFooter theme={theme}>
 			<p>Ground Total</p>
 			<span>{total} $</span>
 		</StyledInvoiceViewFooter>

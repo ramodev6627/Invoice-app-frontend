@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledAuthField = styled.div`
@@ -15,14 +16,14 @@ const StyledAuthField = styled.div`
 		font-size: 0.9rem;
 		font-weight: 600;
 		letter-spacing: 0.032em;
-		color: var(--typo);
+		color: ${(props) => props.theme.typo};
 		outline: 0;
 		border: 1px solid #999aa185;
 		border-radius: 5px;
 		width: 100%;
 
 		:focus {
-			border-color: var(--primary);
+			border-color: ${(props) => props.theme.primary};
 		}
 
 		&.error {
@@ -42,8 +43,10 @@ const StyledAuthField = styled.div`
 `;
 
 export const AuthField = ({ type, formik }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	return (
-		<StyledAuthField>
+		<StyledAuthField theme={theme}>
 			<label htmlFor={type}>{type}</label>
 			<input
 				id={type}

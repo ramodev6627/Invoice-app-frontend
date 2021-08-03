@@ -22,7 +22,7 @@ const StyledInvoiceViewHeader = styled.div`
 		margin-bottom: 1em;
 
 		.title {
-			color: var(--typo-lighter);
+			color: ${(props) => props.theme.typoLighter};
 		}
 	}
 
@@ -40,7 +40,7 @@ const StyledInvoiceViewHeader = styled.div`
 
 		a {
 			text-decoration: none;
-			color: var(--typo-lighter);
+			color: ${(props) => props.theme.typoLighter};
 
 			:hover {
 				text-decoration: underline;
@@ -72,6 +72,8 @@ const StyledInvoiceViewHeader = styled.div`
 `;
 
 export const InvoiceViewHeader = ({ status, invoiceId }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const dispatch = useDispatch();
 	const jwt = useSelector((state) => state.auth.jwt);
 	const history = useHistory();
@@ -101,12 +103,13 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 	};
 
 	return (
-		<StyledInvoiceViewHeader>
+		<StyledInvoiceViewHeader theme={theme}>
 			{deleteModal && (
 				<InvoiceDeleteModal
 					closeModal={() => setDeleteModal(false)}
 					loading={deleteLoading}
 					deleteHandler={deleteHandler}
+					theme={theme}
 				/>
 			)}
 			<div className="status">
@@ -115,13 +118,9 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 			</div>
 			<div className="cta">
 				<Link className="margin-left" to={`/invoice/${invoiceId}/edit`}>
-					<Button
-						text="Edit"
-						className="gray rounded"
-						handleClick={() => setDeleteModal(true)}
-					/>
+					<Button text="Edit" className="gray rounded" handleClick={() => setDeleteModal(true)} />
 				</Link>
-				
+
 				<Button
 					text="Delete"
 					className="red rounded margin-left"

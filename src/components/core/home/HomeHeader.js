@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const StyledHomeHeader = styled.div`
-	color: var(--typo);
+	color: ${(props) => props.theme.typo};
 	margin-top: 1.7em;
 
 	.header,
@@ -15,7 +15,7 @@ const StyledHomeHeader = styled.div`
 	}
 
 	.header p {
-		color: var(--typo-lighter);
+		color: ${(props) => props.theme.typoLighter};
 	}
 
 	.filter {
@@ -34,7 +34,7 @@ const StyledHomeHeader = styled.div`
 			}
 			svg {
 				margin-left: 0.7em;
-				color: var(--primary);
+				color: ${(props) => props.theme.primary};
 			}
 		}
 	}
@@ -42,7 +42,7 @@ const StyledHomeHeader = styled.div`
 	.dropdown {
 		list-style-type: none;
 		position: absolute;
-		color: var(--typo-light);
+		color: ${(props) => props.theme.typoLight};
 		background: #fff;
 		width: 100%;
 		max-width: 300px;
@@ -82,7 +82,7 @@ const StyledHomeHeader = styled.div`
 		padding: 0.7em 0.9em;
 		border-radius: 30px;
 		border: 0;
-		background: var(--primary);
+		background: ${(props) => props.theme.primary};
 		color: #fff;
 		font-size: 0.95rem;
 		font-family: 'Nanum Gothic', sans-serif;
@@ -95,7 +95,7 @@ const StyledHomeHeader = styled.div`
 			margin-right: 0.3em;
 			font-size: 32px;
 			color: #fff;
-			background: var(--primary);
+			background: ${(props) => props.theme.primary};
 		}
 
 		:hover {
@@ -117,9 +117,11 @@ const StyledHomeHeader = styled.div`
 export const HomeHeader = ({ className, totalPages, totalInvoices, filterClick }) => {
 	const [showDropDown, setShowDropDown] = useState(false);
 	const filter = useSelector((state) => state.invoice.invoiceListFilter);
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 
 	return (
-		<StyledHomeHeader className={className}>
+		<StyledHomeHeader theme={theme} className={className}>
 			<div className="header">
 				<h1>Invoices</h1>
 				<p>

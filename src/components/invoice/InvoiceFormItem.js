@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { TextInput } from '../core/TextInput';
 import { MdDelete } from 'react-icons/md';
 import { validateItemName, validateItemPrice, validateItemQty } from './InvoiceFormHelpers';
+import { useSelector } from 'react-redux';
 
 const StyledInvoiceFormItem = styled.li`
 	.col {
@@ -40,11 +41,11 @@ const StyledInvoiceFormItem = styled.li`
 				font-size: 21px;
 				display: block;
 				transition: color 0.1s ease-in;
-				color: var(--primary-dark);
+				color: ${(props) => props.theme.primaryDark};
 			}
 			:hover {
 				svg {
-					color: var(--primary);
+					color: ${(props) => props.theme.primary};
 				}
 			}
 		}
@@ -89,8 +90,10 @@ const StyledInvoiceFormItem = styled.li`
 `;
 
 export const InvoiceFormItem = ({ index, item, remove, touched, errors, onBlur }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	return (
-		<StyledInvoiceFormItem>
+		<StyledInvoiceFormItem theme={theme}>
 			<div className=" col name">
 				<label htmlFor={`invoiceItems.${index}.itemName`}>Item Name</label>
 

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledTextInput = styled.input`
@@ -9,7 +10,7 @@ const StyledTextInput = styled.input`
 	border: 1px solid #e1e1e1;
 
 	:focus {
-		border-color: var(--primary);
+		border-color: ${(props) => props.theme.primary};
 	}
 
 	&.error {
@@ -23,5 +24,7 @@ const StyledTextInput = styled.input`
 `;
 
 export const TextInput = ({ field, form, ...props }) => {
-	return <StyledTextInput {...field} {...props} />;
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
+	return <StyledTextInput theme={theme} {...field} {...props} />;
 };

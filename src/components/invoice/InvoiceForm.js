@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoice } from './InvoiceSlice';
 
 export const InvoiceForm = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const match = useRouteMatch();
 	const history = useHistory();
 	const jwt = useSelector((state) => state.auth.jwt);
@@ -71,7 +73,7 @@ export const InvoiceForm = () => {
 	}
 
 	return (
-		<StyledInvoiceForm>
+		<StyledInvoiceForm theme={theme}>
 			<div className="container">
 				<BackButton />
 				<h1>{editView ? 'Edit Invoice' : 'New Invoice'}</h1>

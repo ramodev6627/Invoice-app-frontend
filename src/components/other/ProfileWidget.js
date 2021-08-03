@@ -36,7 +36,7 @@ const StyledProfileWidget = styled.div`
 	.dropdown {
 		list-style-type: none;
 		position: absolute;
-		color: var(--typo-light);
+		color: ${(props) => props.theme.typoLight};
 		background: #fff;
 		width: 100%;
 		padding: 0.5em;
@@ -64,13 +64,15 @@ const StyledProfileWidget = styled.div`
 `;
 
 export const ProfileWidget = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const history = useHistory();
 	const [showDropDown, setShowDropDown] = useState(false);
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.auth.user);
 
 	return (
-		<StyledProfileWidget>
+		<StyledProfileWidget theme={theme}>
 			<div className="user" onClick={() => setShowDropDown((prev) => !prev)}>
 				<img src={profilePic} alt="Not me" />
 				<p>{user.username}</p>

@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './components/auth/AuthSlice';
-import InvoiceReducer from './components/invoice/InvoiceSlice';
+import invoiceReducer from './components/invoice/InvoiceSlice';
+import themeReducer from './components/core/ThemeSlice';
 
 export default configureStore({
 	reducer: {
 		auth: authReducer,
-		invoice: InvoiceReducer,
+		invoice: invoiceReducer,
+		theme: themeReducer,
 	},
 });
