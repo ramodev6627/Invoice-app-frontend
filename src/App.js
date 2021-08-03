@@ -7,6 +7,10 @@ const StyledApp = styled.div`
 	background: ${(props) => props.theme.background};
 	min-height: 100vh;
 	padding-bottom: 1em;
+
+	.container {
+		background-color: ${(props) => props.theme.backgroundVariant};
+	}
 `;
 
 function App() {

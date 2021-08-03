@@ -22,6 +22,7 @@ const StyledHomeHeader = styled.div`
 		position: relative;
 
 		button {
+			color: ${(props) => props.theme.typo};
 			padding: 0.5em 1em 0.5em 0;
 			background: 0;
 			border: 0;
@@ -43,7 +44,7 @@ const StyledHomeHeader = styled.div`
 		list-style-type: none;
 		position: absolute;
 		color: ${(props) => props.theme.typoLight};
-		background: #fff;
+		background: ${(props) => props.theme.backgroundVariant};
 		width: 100%;
 		max-width: 300px;
 		padding: 0.5em;
@@ -70,7 +71,8 @@ const StyledHomeHeader = styled.div`
 		.divider {
 			height: 1px;
 			width: 100%;
-			background: #f0f0f775;
+			background: ${(props) => props.theme.typoLight};
+			opacity: 0.1;
 		}
 	}
 

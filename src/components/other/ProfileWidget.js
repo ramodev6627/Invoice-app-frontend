@@ -37,7 +37,7 @@ const StyledProfileWidget = styled.div`
 		list-style-type: none;
 		position: absolute;
 		color: ${(props) => props.theme.typoLight};
-		background: #fff;
+		background: ${(props) => props.theme.backgroundVariant};
 		width: 100%;
 		padding: 0.5em;
 		font-size: 0.9rem;

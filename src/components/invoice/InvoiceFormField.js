@@ -19,10 +19,15 @@ const StyledInvoiceFormField = styled.div`
 		outline: none;
 		padding: 0.5em;
 		border-radius: 4px;
-		border: 1px solid #e1e1e1;
+		border: 1px solid ${(props) => props.theme.darkLight};
+		background-color: ${(props) => props.theme.background};
+		color: ${(props) => props.theme.typo};
 	}
 	.description {
 		height: 150px;
+		border: 1px solid ${(props) => props.theme.darkLight};
+		background-color: ${(props) => props.theme.background};
+		color: ${(props) => props.theme.typo};
 	}
 
 	.error {

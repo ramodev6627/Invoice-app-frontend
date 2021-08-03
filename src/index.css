@@ -8,21 +8,6 @@
 	box-sizing: border-box;
 }
 
-:root {
-	--primary: #7c5dff;
-	--primary-dark: #383a55;
-	--white: #f9f8fd;
-	--typo: #272830;
-	--typo-light: #272830cc;
-	--typo-lighter: #27283085;
-	--green: #34d69f;
-	--green-light: #34d69f14;
-	--orange: #ff8d02;
-	--orange-light: #ff8d0217;
-	--dark: #111115;
-	--dark-light: #27283012;
-}
-
 html {
 	scroll-behavior: smooth;
 }
@@ -44,7 +29,6 @@ button {
 .container {
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 	border-radius: 8px;
-	background-color: #fff;
 	padding: 2em;
 	margin: 3em auto;
 	width: 95%;

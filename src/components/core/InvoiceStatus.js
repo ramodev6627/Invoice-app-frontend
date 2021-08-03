@@ -22,6 +22,7 @@ const StyledInvoiceStatus = styled.div`
 
 	p {
 		text-transform: capitalize;
+		font-weight: 600;
 	}
 
 	&.PAID {

@@ -11,7 +11,7 @@ const StyledInvoiceViewHeader = styled.div`
 	max-width: 1000px;
 	margin-top: 1em;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-	background-color: #fff;
+	background-color: ${(props) => props.theme.backgroundVariant};
 	border-radius: 8px;
 	padding: 1.5em 2em;
 
@@ -22,7 +22,7 @@ const StyledInvoiceViewHeader = styled.div`
 		margin-bottom: 1em;
 
 		.title {
-			color: ${(props) => props.theme.typoLighter};
+			color: ${(props) => props.theme.typo};
 		}
 	}
 
@@ -40,10 +40,12 @@ const StyledInvoiceViewHeader = styled.div`
 
 		a {
 			text-decoration: none;
-			color: ${(props) => props.theme.typoLighter};
+			button {
+				color: #272830cc;
+			}
 
 			:hover {
-				text-decoration: underline;
+				text-decoration: underline #272830cc;
 			}
 		}
 	}
@@ -118,7 +120,7 @@ export const InvoiceViewHeader = ({ status, invoiceId }) => {
 			</div>
 			<div className="cta">
 				<Link className="margin-left" to={`/invoice/${invoiceId}/edit`}>
-					<Button text="Edit" className="gray rounded" handleClick={() => setDeleteModal(true)} />
+					<Button text="Edit" className="gray rounded" />
 				</Link>
 
 				<Button

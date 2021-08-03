@@ -229,7 +229,7 @@ export const InvoiceForm = () => {
 								</FieldArray>
 							</div>
 							<div className="footer">
-								<Button text="Cancel" className="Rounded gray" />
+								<Button text="Cancel" className="Rounded gray" handleClick={history.goBack} />
 								<Button type="submit" text="Submit" loading={submitLoading} />
 							</div>
 						</Form>

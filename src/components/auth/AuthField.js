@@ -17,8 +17,9 @@ const StyledAuthField = styled.div`
 		font-weight: 600;
 		letter-spacing: 0.032em;
 		color: ${(props) => props.theme.typo};
+		border: 1px solid ${(props) => props.theme.darkLight};
+		background-color: ${(props) => props.theme.background};
 		outline: 0;
-		border: 1px solid #999aa185;
 		border-radius: 5px;
 		width: 100%;
 

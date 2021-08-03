@@ -7,7 +7,7 @@ import { toDateInputValue } from '../../invoice/InvoiceFormHelpers';
 import { useSelector } from 'react-redux';
 
 const StyledInvoiceListItem = styled.li`
-	background: #fff;
+	background: ${(props) => props.theme.backgroundVariant};
 	margin: 1.5em 0;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 	padding: 1.8em 2em;
@@ -47,6 +47,7 @@ const StyledInvoiceListItem = styled.li`
 	.price {
 		font-size: 1.5rem;
 		font-weight: 700;
+		color: ${(props) => props.theme.typo};
 	}
 
 	.cta {

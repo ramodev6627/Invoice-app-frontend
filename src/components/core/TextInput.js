@@ -7,7 +7,9 @@ const StyledTextInput = styled.input`
 	outline: none;
 	padding: 0.5em;
 	border-radius: 4px;
-	border: 1px solid #e1e1e1;
+	border: 1px solid ${(props) => props.theme.darkLight};
+	background-color: ${(props) => props.theme.background};
+	color: ${(props) => props.theme.typo};
 
 	:focus {
 		border-color: ${(props) => props.theme.primary};

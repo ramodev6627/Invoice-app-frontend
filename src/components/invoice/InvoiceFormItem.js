@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 const StyledInvoiceFormItem = styled.li`
 	.col {
 		margin-bottom: 1em;
+		color: ${(props) => props.theme.typoLighter};
 
 		label {
 			display: block;

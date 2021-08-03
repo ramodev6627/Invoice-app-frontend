@@ -20,16 +20,20 @@ export const InvoiceView = () => {
 
 	useEffect(() => {
 		setInvoiceLoading(true);
-		let payload = { id: match.params.invoiceId, jwt };
-		dispatch(fetchInvoice(payload))
-			.then(() => {
-				setInvoiceLoading(false);
-			})
-			.catch((err) => {
-				console.log(err);
-				setInvoiceLoading(false);
-			});
-	}, [match.params.invoiceId, jwt, dispatch]);
+		if (!invoice || invoice.id !== match.params.invoiceId) {
+			let payload = { id: match.params.invoiceId, jwt };
+			dispatch(fetchInvoice(payload))
+				.then(() => {
+					setInvoiceLoading(false);
+				})
+				.catch((err) => {
+					console.log(err);
+					setInvoiceLoading(false);
+				});
+		} else {
+			setInvoiceLoading(false);
+		}
+	}, [match.params.invoiceId, jwt, dispatch, invoice]);
 
 	if (invoiceLoading) {
 		return <Loading />;

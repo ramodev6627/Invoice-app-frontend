@@ -45,7 +45,7 @@ const StyledButton = styled.button`
 	}
 	&.gray {
 		background-color: #eeeeee;
-		color: ${(props) => props.theme.typoLight};
+		color: #272830cc;
 	}
 	&.loading {
 		padding: 0.5em 1.5em;

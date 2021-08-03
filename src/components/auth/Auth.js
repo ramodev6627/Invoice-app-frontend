@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, signup } from './AuthSlice';
 
 const StyledAuth = styled.div`
+	color: ${(props) => props.theme.typo};
+
 	.dimensions {
 		width: 100%;
 		max-width: 300px;
@@ -22,7 +24,6 @@ const StyledAuth = styled.div`
 
 	h1 {
 		font-size: 1.5rem;
-		color: ${(props) => props.theme.typo};
 	}
 
 	.footer {
