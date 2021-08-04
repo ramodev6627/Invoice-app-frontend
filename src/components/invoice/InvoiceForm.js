@@ -16,6 +16,7 @@ import { BackButton } from '../core/BackButton';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoice } from './InvoiceSlice';
+import { Loading } from '../core/Loading';
 
 export const InvoiceForm = () => {
 	const currentTheme = useSelector((state) => state.theme.current);
@@ -30,10 +31,14 @@ export const InvoiceForm = () => {
 	const [valuesSet, setValuesSet] = useState(false);
 	let editView = match.path === '/invoice/:invoiceId/edit' ? true : false;
 	const [submitLoading, setSubmitLoading] = useState(false);
+	const [formLoading, setFormLoading] = useState(false);
 
 	useEffect(() => {
 		if (editView) {
-			dispatch(fetchInvoice({ id: match.params.invoiceId, jwt }));
+			setFormLoading(true);
+			dispatch(fetchInvoice({ id: match.params.invoiceId, jwt })).then(() => {
+				setFormLoading(false);
+			});
 		}
 		// eslint-disable-next-line
 	}, [editView]);
@@ -69,6 +74,9 @@ export const InvoiceForm = () => {
 	};
 
 	if (editView && !invoice) {
+		if (formLoading) {
+			return <Loading />;
+		}
 		return null;
 	}
 
