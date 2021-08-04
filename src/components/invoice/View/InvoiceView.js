@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loading } from '../../core/Loading';
 
 export const InvoiceView = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const match = useRouteMatch();
 	const jwt = useSelector((state) => state.auth.jwt);
 	const invoice = useSelector((state) => state.invoice.invoice);
@@ -18,16 +20,20 @@ export const InvoiceView = () => {
 
 	useEffect(() => {
 		setInvoiceLoading(true);
-		let payload = { id: match.params.invoiceId, jwt };
-		dispatch(fetchInvoice(payload))
-			.then(() => {
-				setInvoiceLoading(false);
-			})
-			.catch((err) => {
-				console.log(err);
-				setInvoiceLoading(false);
-			});
-	}, [match.params.invoiceId, jwt, dispatch]);
+		if (!invoice || invoice.id !== match.params.invoiceId) {
+			let payload = { id: match.params.invoiceId, jwt };
+			dispatch(fetchInvoice(payload))
+				.then(() => {
+					setInvoiceLoading(false);
+				})
+				.catch((err) => {
+					console.log(err);
+					setInvoiceLoading(false);
+				});
+		} else {
+			setInvoiceLoading(false);
+		}
+	}, [match.params.invoiceId, jwt, dispatch, invoice]);
 
 	if (invoiceLoading) {
 		return <Loading />;
@@ -43,7 +49,7 @@ export const InvoiceView = () => {
 	});
 
 	return (
-		<StyledInvoiceView>
+		<StyledInvoiceView theme={theme}>
 			<BackButton />
 			<InvoiceViewHeader status={invoice.status} invoiceId={invoice.id} />
 			<div className="container">

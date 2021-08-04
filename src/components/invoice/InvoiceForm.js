@@ -11,13 +11,16 @@ import {
 	StyledInvoiceForm,
 	validate,
 } from './InvoiceFormHelpers';
-import { BiPlus } from "react-icons/bi";
+import { BiPlus } from 'react-icons/bi';
 import { BackButton } from '../core/BackButton';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchInvoice } from './InvoiceSlice';
+import { Loading } from '../core/Loading';
 
 export const InvoiceForm = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const match = useRouteMatch();
 	const history = useHistory();
 	const jwt = useSelector((state) => state.auth.jwt);
@@ -28,10 +31,14 @@ export const InvoiceForm = () => {
 	const [valuesSet, setValuesSet] = useState(false);
 	let editView = match.path === '/invoice/:invoiceId/edit' ? true : false;
 	const [submitLoading, setSubmitLoading] = useState(false);
+	const [formLoading, setFormLoading] = useState(false);
 
 	useEffect(() => {
 		if (editView) {
-			dispatch(fetchInvoice({ id: match.params.invoiceId, jwt }));
+			setFormLoading(true);
+			dispatch(fetchInvoice({ id: match.params.invoiceId, jwt })).then(() => {
+				setFormLoading(false);
+			});
 		}
 		// eslint-disable-next-line
 	}, [editView]);
@@ -67,11 +74,14 @@ export const InvoiceForm = () => {
 	};
 
 	if (editView && !invoice) {
+		if (formLoading) {
+			return <Loading />;
+		}
 		return null;
 	}
 
 	return (
-		<StyledInvoiceForm>
+		<StyledInvoiceForm theme={theme}>
 			<div className="container">
 				<BackButton />
 				<h1>{editView ? 'Edit Invoice' : 'New Invoice'}</h1>
@@ -209,17 +219,6 @@ export const InvoiceForm = () => {
 														);
 													})}
 											</ul>
-											{/* <Button handleClick={() =>
-													push({
-														itemName: '',
-														qty: '',
-														price: '',
-													})}
-													
-													type="icon"
-													className="add-item round">
-												<BiPlus /> Add New Item 
-											</Button> */}
 											<button
 												className="add-item"
 												type="button"
@@ -238,7 +237,7 @@ export const InvoiceForm = () => {
 								</FieldArray>
 							</div>
 							<div className="footer">
-								<Button text="Cancel" className="Rounded gray" />
+								<Button text="Cancel" className="Rounded gray" handleClick={history.goBack} />
 								<Button type="submit" text="Submit" loading={submitLoading} />
 							</div>
 						</Form>

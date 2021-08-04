@@ -4,9 +4,10 @@ import { RiArrowRightSLine } from 'react-icons/ri';
 import { useHistory } from 'react-router-dom';
 import { InvoiceStatus } from '../InvoiceStatus';
 import { toDateInputValue } from '../../invoice/InvoiceFormHelpers';
+import { useSelector } from 'react-redux';
 
 const StyledInvoiceListItem = styled.li`
-	background: #fff;
+	background: ${(props) => props.theme.backgroundVariant};
 	margin: 1.5em 0;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 	padding: 1.8em 2em;
@@ -26,26 +27,27 @@ const StyledInvoiceListItem = styled.li`
 	}
 
 	.id {
-		color: var(--typo-lighter);
+		color: ${(props) => props.theme.typoLighter};
 		span {
 			font-size: 1.1rem;
 			font-weight: 600;
-			color: var(--typo);
+			color: ${(props) => props.theme.typo};
 		}
 	}
 
 	.date {
-		color: var(--typo-lighter);
+		color: ${(props) => props.theme.typoLighter};
 	}
 
 	.name {
-		color: var(--typo-light);
+		color: ${(props) => props.theme.typoLight};
 		margin: 0.5em 0;
 	}
 
 	.price {
 		font-size: 1.5rem;
 		font-weight: 700;
+		color: ${(props) => props.theme.typo};
 	}
 
 	.cta {
@@ -83,12 +85,14 @@ const StyledInvoiceListItem = styled.li`
 			font-size: 21px;
 			margin-left: 1em;
 			margin-top: 7px;
-			color: var(--primary);
+			color: ${(props) => props.theme.primary};
 		}
 	}
 `;
 
 export const InvoiceListItem = ({ invoice }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const history = useHistory();
 
 	const clickHandler = () => {
@@ -96,7 +100,7 @@ export const InvoiceListItem = ({ invoice }) => {
 	};
 
 	return (
-		<StyledInvoiceListItem onClick={clickHandler}>
+		<StyledInvoiceListItem theme={theme} onClick={clickHandler}>
 			<div className="wrapper wrapper-1">
 				<p className="id">
 					#<span>{invoice.key}</span>

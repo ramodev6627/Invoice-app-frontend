@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../auth/AuthSlice';
 import { useHistory } from 'react-router-dom';
 import { clearState } from '../invoice/InvoiceSlice';
+import { MdPlayArrow } from 'react-icons/md';
 
 const StyledProfileWidget = styled.div`
 	position: relative;
@@ -36,8 +37,8 @@ const StyledProfileWidget = styled.div`
 	.dropdown {
 		list-style-type: none;
 		position: absolute;
-		color: var(--typo-light);
-		background: #fff;
+		color: ${(props) => props.theme.typoLight};
+		background: ${(props) => props.theme.backgroundVariant};
 		width: 100%;
 		padding: 0.5em;
 		font-size: 0.9rem;
@@ -55,6 +56,15 @@ const StyledProfileWidget = styled.div`
 			}
 		}
 
+		.arrow {
+			position: absolute;
+			font-size: 30px;
+			top: -17px;
+			transform: rotate(270deg) scaleY(150%);
+			right: 14px;
+			color: ${(props) => props.theme.backgroundVariant};
+		}
+
 		.divider {
 			height: 1px;
 			width: 100%;
@@ -64,13 +74,15 @@ const StyledProfileWidget = styled.div`
 `;
 
 export const ProfileWidget = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const history = useHistory();
 	const [showDropDown, setShowDropDown] = useState(false);
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.auth.user);
 
 	return (
-		<StyledProfileWidget>
+		<StyledProfileWidget theme={theme}>
 			<div className="user" onClick={() => setShowDropDown((prev) => !prev)}>
 				<img src={profilePic} alt="Not me" />
 				<p>{user.username}</p>
@@ -78,6 +90,7 @@ export const ProfileWidget = () => {
 			</div>
 			{showDropDown && (
 				<ul className="dropdown">
+					<MdPlayArrow className="arrow" />
 					<li
 						onClick={() => {
 							dispatch(logout());

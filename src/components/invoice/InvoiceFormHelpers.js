@@ -9,7 +9,7 @@ const StyledInvoiceForm = styled.div`
 	}
 
 	h1 {
-		color: var(--typo);
+		color: ${(props) => props.theme.typo};
 		font-size: 1.5rem;
 		margin-top: 1em;
 	}
@@ -21,7 +21,7 @@ const StyledInvoiceForm = styled.div`
 
 	.title {
 		margin: 1em 0;
-		color: var(--primary);
+		color: ${(props) => props.theme.primary};
 		font-weight: 700;
 	}
 
@@ -39,9 +39,9 @@ const StyledInvoiceForm = styled.div`
 		padding: 0.7em;
 		border: 0;
 		border-radius: 40px;
-		font-size: 0.90rem;
+		font-size: 0.9rem;
 		font-weight: 600;
-		color: var(--white);
+		color: ${(props) => props.theme.white};
 		background: #7c5dff;
 		margin-top: 1em;
 		transition: opacity 0.1s ease-in;
@@ -54,9 +54,7 @@ const StyledInvoiceForm = styled.div`
 			margin-right: 5px;
 			font-size: 1.1rem;
 		}
-
 	}
-
 
 	.footer {
 		margin-top: 1.5em;
@@ -87,7 +85,7 @@ const StyledInvoiceForm = styled.div`
 	@media (min-width: 700px) {
 		.wrapper {
 			display: flex;
-			align-items: center;
+			align-items: baseline;
 			justify-content: space-between;
 
 			.input-container + .input-container {

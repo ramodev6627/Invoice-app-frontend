@@ -10,10 +10,12 @@ import {
 	loginInitialValues,
 	signupInitialValues,
 } from './AuthHelpers';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, signup } from './AuthSlice';
 
 const StyledAuth = styled.div`
+	color: ${(props) => props.theme.typo};
+
 	.dimensions {
 		width: 100%;
 		max-width: 300px;
@@ -22,7 +24,6 @@ const StyledAuth = styled.div`
 
 	h1 {
 		font-size: 1.5rem;
-		color: var(--typo);
 	}
 
 	.footer {
@@ -33,6 +34,8 @@ const StyledAuth = styled.div`
 `;
 
 export const Auth = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const location = useLocation();
 	let loginView = location.pathname === '/login' ? true : false;
 	const dispatch = useDispatch();
@@ -60,7 +63,7 @@ export const Auth = () => {
 	});
 
 	return (
-		<StyledAuth>
+		<StyledAuth theme={theme}>
 			<div className="container">
 				<h1 className="dimensions">{loginView ? 'Login' : 'Sign Up'}</h1>
 

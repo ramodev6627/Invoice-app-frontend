@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledTextArea = styled.textarea`
@@ -9,7 +10,7 @@ const StyledTextArea = styled.textarea`
 	border: 1px solid #e1e1e1;
 
 	:focus {
-		border-color: var(--primary);
+		border-color: ${(props) => props.theme.primary};
 	}
 
 	&.error {
@@ -23,5 +24,7 @@ const StyledTextArea = styled.textarea`
 `;
 
 export const TextArea = ({ field, form, ...props }) => {
-	return <StyledTextArea {...field} {...props} />;
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
+	return <StyledTextArea theme={theme} {...field} {...props} />;
 };

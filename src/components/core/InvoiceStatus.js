@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const StyledInvoiceStatus = styled.div`
@@ -21,34 +22,37 @@ const StyledInvoiceStatus = styled.div`
 
 	p {
 		text-transform: capitalize;
+		font-weight: 600;
 	}
 
 	&.PAID {
-		color: var(--green);
-		background: var(--green-light);
+		color: ${(props) => props.theme.green};
+		background: ${(props) => props.theme.greenLight};
 		span {
-			background-color: var(--green);
+			background-color: ${(props) => props.theme.green};
 		}
 	}
 	&.PENDING {
-		color: var(--orange);
-		background: var(--orange-light);
+		color: ${(props) => props.theme.orange};
+		background: ${(props) => props.theme.orangeLight};
 		span {
-			background-color: var(--orange);
+			background-color: ${(props) => props.theme.orange};
 		}
 	}
 	&.DRAFT {
-		color: var(--dark);
-		background: var(--dark-light);
+		color: ${(props) => props.theme.dark};
+		background: ${(props) => props.theme.darkLight};
 		span {
-			background-color: var(--dark);
+			background-color: ${(props) => props.theme.dark};
 		}
 	}
 `;
 
 export const InvoiceStatus = ({ status }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	return (
-		<StyledInvoiceStatus className={status}>
+		<StyledInvoiceStatus theme={theme} className={status}>
 			<span></span>
 			<p>{status.toLocaleLowerCase()}</p>
 		</StyledInvoiceStatus>

@@ -19,7 +19,7 @@ const StyledInvoiceDeleteModal = styled.div`
 	.content {
 		width: 90%;
 		max-width: 500px;
-		background: #fff;
+		background: ${(props) => props.theme.background};
 		border-radius: 5px;
 		padding: 3em;
 
@@ -43,9 +43,9 @@ const StyledInvoiceDeleteModal = styled.div`
 	}
 `;
 
-const InvoiceDeleteModal = ({ closeModal, deleteHandler, loading }) => {
+const InvoiceDeleteModal = ({ closeModal, deleteHandler, loading, theme }) => {
 	return ReactDom.createPortal(
-		<StyledInvoiceDeleteModal>
+		<StyledInvoiceDeleteModal theme={theme}>
 			<div className={'content'}>
 				<p>Please confirm that you want to DELETE this invoice!</p>
 				<div className="buttons">

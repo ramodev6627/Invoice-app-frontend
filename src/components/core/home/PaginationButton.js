@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Button } from '../Button';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const StyledPaginationButton = styled.div`
 	button {
@@ -27,12 +28,12 @@ const StyledPaginationLink = styled.li`
 	a {
 		text-decoration: none;
 		color: #fff;
-		background: var(--primary);
+		background: ${(props) => props.theme.primary};
 		margin: 1em 0.5em;
 		padding: 0.4em 0.8em;
 		font-size: 0.9rem;
 		font-weight: 500;
-		border: 1px solid var(--primary);
+		border: 1px solid ${(props) => props.theme.primary};
 		border-radius: 80px;
 		cursor: pointer;
 		width: 35px;
@@ -47,12 +48,14 @@ const StyledPaginationLink = styled.li`
 
 		&.active {
 			background-color: transparent;
-			color: var(--primary);
+			color: ${(props) => props.theme.primary};
 		}
 	}
 `;
 
 export const PaginationButton = ({ value }) => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const { pageIndex } = useParams();
 	const history = useHistory();
 
@@ -82,7 +85,7 @@ export const PaginationButton = ({ value }) => {
 		);
 	} else {
 		return (
-			<StyledPaginationLink>
+			<StyledPaginationLink theme={theme}>
 				<NavLink to={`/invoices/${value}`} activeClassName="active">
 					{value}
 				</NavLink>

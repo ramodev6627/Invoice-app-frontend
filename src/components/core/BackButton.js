@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaChevronLeft } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const StyledBackButton = styled.button`
 	background: 0;
@@ -12,11 +13,11 @@ const StyledBackButton = styled.button`
 	padding: 0.8em 0;
 
 	svg {
-		color: var(--primary);
+		color: ${(props) => props.theme.primary};
 	}
 
 	p {
-		color: var(--typo);
+		color: ${(props) => props.theme.typo};
 		font-size: 1rem;
 		font-weight: 600;
 		line-height: 1;
@@ -28,10 +29,12 @@ const StyledBackButton = styled.button`
 `;
 
 export const BackButton = () => {
+	const currentTheme = useSelector((state) => state.theme.current);
+	const theme = useSelector((state) => state.theme[currentTheme]);
 	const history = useHistory();
 
 	return (
-		<StyledBackButton onClick={() => history.goBack()}>
+		<StyledBackButton theme={theme} onClick={() => history.goBack()}>
 			<FaChevronLeft />
 			<p>Go back</p>
 		</StyledBackButton>
