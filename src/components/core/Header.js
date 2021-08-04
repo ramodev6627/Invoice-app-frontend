@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProfileWidget } from '../other/ProfileWidget';
 import logo from '../images/main-logo.png';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from './Button';
-import { switchTheme } from './ThemeSlice';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 const StyledHeader = styled.header`
 	background: ${(props) => props.theme.primary};
@@ -21,6 +20,11 @@ const StyledHeader = styled.header`
 	.logo {
 		width: 30px;
 	}
+
+	.theme-switcher {
+		margin-left: auto;
+		margin-right: 2em;
+	}
 `;
 
 const EmptyHeader = styled.header`
@@ -33,7 +37,6 @@ export const Header = () => {
 	const user = useSelector((state) => state.auth.user);
 	const currentTheme = useSelector((state) => state.theme.current);
 	const theme = useSelector((state) => state.theme[currentTheme]);
-	const dispatch = useDispatch();
 
 	if (!user) {
 		return <EmptyHeader />;
@@ -44,9 +47,7 @@ export const Header = () => {
 			<Link to={'/'}>
 				<img className="logo" src={logo} alt="invoice app" />
 			</Link>
-			<div className="theme-switch">
-				<Button text="switch theme" handleClick={() => dispatch(switchTheme())} />
-			</div>
+			<ThemeSwitcher className="theme-switcher" />
 			<ProfileWidget />
 		</StyledHeader>
 	);

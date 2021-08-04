@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../auth/AuthSlice';
 import { useHistory } from 'react-router-dom';
 import { clearState } from '../invoice/InvoiceSlice';
+import { MdPlayArrow } from 'react-icons/md';
 
 const StyledProfileWidget = styled.div`
 	position: relative;
@@ -55,6 +56,15 @@ const StyledProfileWidget = styled.div`
 			}
 		}
 
+		.arrow {
+			position: absolute;
+			font-size: 30px;
+			top: -17px;
+			transform: rotate(270deg) scaleY(150%);
+			right: 14px;
+			color: ${(props) => props.theme.backgroundVariant};
+		}
+
 		.divider {
 			height: 1px;
 			width: 100%;
@@ -80,6 +90,7 @@ export const ProfileWidget = () => {
 			</div>
 			{showDropDown && (
 				<ul className="dropdown">
+					<MdPlayArrow className="arrow" />
 					<li
 						onClick={() => {
 							dispatch(logout());
